@@ -8,7 +8,7 @@ module.exports = {
 		if (!member.permissions.has("ADMINISTRATOR")) return reply("No tienes autorización para usar este comando");
 		let target = args[0];
 		if (!target) {
-			const askmsg = await reply("Escribe la ID única del socket a reiniciar");
+			const askmsg = await reply("Type the unique ID of the socket u wish to reload");
 			target = await getInput();
 			await askmsg.delete();
 			await target.delete();
@@ -30,8 +30,8 @@ module.exports = {
 				else continue;
 			}
 		}
-		if (!isConnected) return reply("No hay ningún socket conectado con la ID única proporcionada");
+		if (!isConnected) return reply("There is not any socket with the provided unique ID");
 		ws.send(JSON.stringify({ event: "reload", args: [] }));
-		reply(`El socket ha sido recargado`);
+		reply(`The socket has been reloaded`);
 	}
 }
