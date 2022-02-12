@@ -18,7 +18,7 @@ function notConnectedHandler() {
 			clearInterval(imt);
 			return imt = null;
 		}
-		ws = new WebSocket("ws://localhost:8080/");
+		ws = new WebSocket("ws://localhost/");
 		ws.onopen = () => {
 			wsConnected = true;
 			ws.onmessage = wsMessageHandler;
