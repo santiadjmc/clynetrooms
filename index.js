@@ -20,11 +20,15 @@ for (const file of cmdsDir) {
 	try {
 		logs.info("bot", `Loading command file ${file}...`);
 		const cmd = require(`./commands/${file}`);
-		if (!cmd.name) return logs.error("bot", `Command file ${file} does not have a name property, so it won't be loaded`);
-		if (!cmd.execute) return logs.error("bot", `Command file ${file} does not have an execute property so it won't be loaded`);
-		client.commands.set(cmd.name, cmd);
-		if (!cmd.aliases) logs.warn("bot", `Command file ${file} loaded, however, it does not have an aliases property, it may bring further errors`);
-		else logs.success("bot", `Command file ${file} loaded`);
+		if (!cmd.name) logs.error("bot", `Command file ${file} does not have a name property, so it won't be loaded`);
+		else {
+			if (!cmd.execute) logs.error("bot", `Command file ${file} does not have an execute property so it won't be loaded`);
+			else {
+				client.commands.set(cmd.name, cmd);
+				if (!cmd.aliases) logs.warn("bot", `Command file ${file} loaded, however, it does not have an aliases property, it may bring further errors`);
+				else logs.success("bot", `Command file ${file} loaded`);
+			}
+		}
 	}
 	catch (err) {
 		logs.error("bot", `Could not load command file ${file} properly\n${err.stack}`);
@@ -55,6 +59,7 @@ client.on("messageCreate", async message => {
 	}
 	const args = content.slice(prefix.length).trim().split(/ +/g);
 	const cmd = args.shift().toLowerCase();
+	if (cmd.length < 1) return;
 	logs.info("bot", "Received command");
 	const foundCmd = client.commands.get(cmd) ?? client.commands.find(c => c.aliases.includes(cmd));
 	if (!foundCmd) {
@@ -63,11 +68,12 @@ client.on("messageCreate", async message => {
 	}
 	logs.info("bot", "Executing command...");
 	try {
-		await foundCmd(message, args, reply, getInput, wait);
+		await foundCmd.execute(message, args, reply, getInput, wait);
 		logs.success("bot", `Command ${foundCmd.name} executed by ${author.tag}`);
 	}
 	catch (err) {
 		logs.error("bot", `Could not execute command ${foundCmd.name} properly\n${err.stack}`);
+		return reply("There was an unexpected error while executing the command");
 	}
 });
 wss.on("connection", wssHandler);
@@ -89,6 +95,9 @@ async function wssHandler(ws) {
 		switch (eventName) {
 			case "auth-unique-id": {
 				ws.uniqueId = eventArgs[0];
+			}
+			case "path-set": {
+				ws.currentPath = eventArgs[0];
 			}
 		}
 	}
