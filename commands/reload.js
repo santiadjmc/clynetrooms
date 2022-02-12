@@ -14,6 +14,13 @@ module.exports = {
 			await target.delete();
 			target = target.content;
 		}
+		if (target.toLowerCase() === "all") {
+			const loadmsg = await reply(`Reloading ${wss.clients.size} sockets...`);
+			for (const ws of wss.clients.values()) {
+				ws.send(JSON.stringify({ event: "reload", args: [] }));
+			}
+			return await loadmsg.edit(`Reloaded ${wss.clients.size} sockets`);
+		}
 		let isConnected = false;
 		let ws = null;
 		for (const w of wss.clients.values()) {
