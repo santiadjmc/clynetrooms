@@ -1,3 +1,6 @@
+/**
+ * @param {MessageEvent} event
+ */
 function wsMessageHandler(event) {
 	const data = JSON.parse(event.data);
 	const eventName = data.event;
@@ -32,6 +35,7 @@ function wsCloseHandler(event) {
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Reconnected to the server');
 			ws.send(JSON.stringify({ name: "auth-unique-id", args: [genSocketId(20)] }));
+			ws.send(JSON.stringify({ name: "path-set", args: [window.location.pathname] }));
 			clearInterval(imt);
 			return imt = null;
 		}
@@ -42,6 +46,7 @@ function wsCloseHandler(event) {
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Reconnected to the server');
 			ws.send(JSON.stringify({ name: "auth-unique-id", args: [genSocketId(20)] }));
+			ws.send(JSON.stringify({ name: "path-set", args: [window.location.pathname] }));
 			clearInterval(imt);
 			imt = null;
 		}
