@@ -13,18 +13,6 @@ function wsMessageHandler(event) {
 		}
 	}
 }
-/**
- * @param {number} length
- * @returns {string}
- */
-function genSocketId(length) {
-	const chars = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
-	let char = "";
-	for (let i = 0; i < length; i++) {
-		char += chars.charAt(Math.floor(Math.random() * chars.length));
-	}
-	return char;
-}
 function wsCloseHandler(event) {
 	wsConnected = false;
 	console.log("[WEBSOCKET]: Unexpectly disconnected from the server, reconnection interval started");

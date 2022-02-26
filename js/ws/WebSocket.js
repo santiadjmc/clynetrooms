@@ -1,3 +1,15 @@
+/**
+ * @param {number} length
+ * @returns {string}
+ */
+ function genSocketId(length) {
+	const chars = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
+	let char = "";
+	for (let i = 0; i < length; i++) {
+		char += chars.charAt(Math.floor(Math.random() * chars.length));
+	}
+	return char;
+}
 let ws = new WebSocket("ws://161.97.104.158:8888");
 let wsConnected = false;
 let imt = null;
