@@ -42,6 +42,7 @@ app.engine(".html", hbs.engine({
 app.use("/js", express.static(path.join(__dirname, "js")));
 app.use("/css", express.static(path.join(__dirname, "css")));
 app.use("/img", express.static(path.join(__dirname, "img")));
+app.use("/vendor", express.static(path.join(__dirname, "vendor")));
 app.use("/", require("./router"));
 
 // Web start
