@@ -3,8 +3,6 @@ let wsConnected = false;
 let imt = null;
 ws.onopen = () => {
 	console.log("[WEBSOCKET]: Connected to the server");
-	ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-	ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
 	wsConnected = true;
 }
 function notConnectedHandler() {
@@ -17,18 +15,16 @@ function notConnectedHandler() {
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Connected to the server');
 			ws.send(JSON.stringify({ name: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
 			clearInterval(imt);
 			return imt = null;
 		}
-		ws = new WebSocket("ws://localhost/");
+		ws = new WebSocket("ws://localhost:8080/");
 		ws.onopen = () => {
 			wsConnected = true;
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Connected to the server');
 			ws.send(JSON.stringify({ name: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
 			clearInterval(imt);
 			imt = null;
 		}

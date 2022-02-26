@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8" height="16" viewBox="0 0 8 16" version="1.1">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Facebook</title>
+    <desc>Created with Sketch.</desc>
+    <defs/>
+    <g id="Public" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="public_회원가입_소속select01" transform="translate(-806.000000, -263.000000)" fill="#FFFFFF">
+            <g id="social-service" transform="translate(790.000000, 251.000000)">
+                <g id="btn_login_facebook">
+                    <path d="M21.1925651,28 L21.1925651,20.7014291 L23.5539033,20.7014291 L23.9048327,17.8586327 L21.1925651,17.8586327 L21.1925651,16.0417149 C21.1925651,15.219776 21.4126394,14.6573967 22.5486989,14.6573967 L24,14.6573967 L24,12.1112399 C23.7501859,12.0741599 22.8877323,12 21.8884758,12 C19.7947955,12 18.3672862,13.3286983 18.3672862,15.7636153 L18.3672862,17.8648127 L16,17.8648127 L16,20.7076091 L18.3672862,20.7076091 L18.3672862,28 L21.1925651,28 Z" id="Facebook"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
