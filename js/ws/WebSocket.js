@@ -7,7 +7,7 @@ ws.onopen = () => {
 }
 function notConnectedHandler() {
 	if (wsConnected === true) return;
-	console.log("[WEBSOCKET]: 500ms elapsed and the WebSocket is not connected, starting connection interval");
+	console.log("[WEBSOCKET]: 5s elapsed and the WebSocket is not connected, starting connection interval");
 	imt = setInterval(() => {
 		console.log("[WEBSOCKET]: Trying to connect...");
 		if (wsConnected === true) {
@@ -30,4 +30,4 @@ function notConnectedHandler() {
 		}
 	}, 5000);
 }
-setTimeout(notConnectedHandler, 500);
+setTimeout(notConnectedHandler, 5000);
