@@ -34,8 +34,8 @@ function wsCloseHandler(event) {
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Reconnected to the server');
-			ws.send(JSON.stringify({ name: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ name: "path-set", args: [window.location.pathname] }));
+			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
 			clearInterval(imt);
 			return imt = null;
 		}
@@ -45,8 +45,8 @@ function wsCloseHandler(event) {
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Reconnected to the server');
-			ws.send(JSON.stringify({ name: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ name: "path-set", args: [window.location.pathname] }));
+			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
 			clearInterval(imt);
 			imt = null;
 		}
