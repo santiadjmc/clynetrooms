@@ -4,7 +4,7 @@ const fs = require("fs");
 const { WebSocketServer } = require("ws");
 const wait = require("util").promisify(setTimeout);
 const client = new Client({
-	intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"]
+	intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS", "DIRECT_MESSAGES"]
 });
 const prefix = "c.";
 
