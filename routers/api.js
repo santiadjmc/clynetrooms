@@ -3,7 +3,7 @@ const db = require("../db");
 const logs = require("../logs");
 const router = Router();
 const BotClient = require("../index");
-const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
+const { MessageActionRow, MessageButton, MessageEmbed, TextChannel } = require("discord.js");
 
 router.get("/", (req, res) => {
     res.status(403).json({ status: 403, message: "Forbbiden" });
@@ -28,6 +28,9 @@ router.get("/discord/users", async (req, res) => {
 });
 router.post("/users/pending", async (req, res) => {
     const guild = BotClient.guilds.cache.first();
+    /**
+     * @type {TextChannel}
+     */
     const channel = await BotClient.channels.fetch("947973283331047514");
     const user = await BotClient.users.fetch(req.body.data.discordId);
     const pendingUsers = await db.query("SELECT * FROM pending_users");
@@ -48,11 +51,11 @@ router.post("/users/pending", async (req, res) => {
         return collected.first().content;
     }
     let confirmation = await getReply();
-    if (confirmation.toLowerCase() === "cancelar") {
+    if (confirmation.toLowerCase().startsWith("cancelar")) {
         await user.send("Se ha cancelado la solicitud, gracias por confirmar.");
         return;
     }
-    else if (confirmation.toLowerCase() !== "cancelar" && confirmation.toLowerCase() !== "continuar") {
+    else if (!confirmation.toLowerCase().startsWith("cancelar") && !confirmation.toLowerCase().startsWith("continuar")) {
         await user.send("La respuesta no es valida, se ha cancelado el registro de manera automatica.");
         return;
     }
@@ -83,5 +86,7 @@ router.post("/users/pending", async (req, res) => {
             }
         )
         .setColor("RANDOM")
+        channel.send({ embeds: [embed], components: [row] });
+        user.send("Tu solicitud ha sido enviada");
 });
 module.exports = router;
