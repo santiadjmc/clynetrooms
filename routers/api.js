@@ -72,7 +72,7 @@ router.post("/users/pending", async (req, res) => {
                 .setStyle("DANGER")
         );
     const embed = new MessageEmbed()
-        .setAuthor({ iconURL: user.displayAvatarURL({ dynamic: true }), name: user.user.username })
+        .setAuthor({ iconURL: user.displayAvatarURL({ dynamic: true }), name: user.username })
         .setTitle("Nueva solicitud de registro")
         .setDescription("Se les recuerda que deben analizar cuidadosamente la solicitud antes de rechazar o aceptar, pueden esntrevistar al usuario si asi lo desean")
         .addFields(
