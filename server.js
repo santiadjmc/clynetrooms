@@ -45,6 +45,7 @@ app.use("/css", express.static(path.join(__dirname, "css")));
 app.use("/img", express.static(path.join(__dirname, "img")));
 app.use("/vendor", express.static(path.join(__dirname, "vendor")));
 app.use("/", require("./routers/main"));
+app.use("/api", require("./routers/api"));
 
 // Web start
 const server = app.listen(app.get("port"), async () => {
