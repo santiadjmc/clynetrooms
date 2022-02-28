@@ -1,4 +1,3 @@
-require("dotenv").config();
 const { Client, MessageEmbed, MessageButton, MessageActionRow, Collection } = require("discord.js");
 const logs = require("./logs");
 const fs = require("fs");
