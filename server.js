@@ -8,6 +8,7 @@ const path = require("path");
 const morgan = require("morgan");
 const logs = require("./logs");
 const db = require("./db");
+require("./index");
 
 // Middlewares
 app.use(session({

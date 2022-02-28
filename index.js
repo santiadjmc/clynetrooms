@@ -3,7 +3,6 @@ const { Client, MessageEmbed, MessageButton, MessageActionRow, Collection } = re
 const logs = require("./logs");
 const fs = require("fs");
 const { WebSocketServer } = require("ws");
-require("./server");
 const wait = require("util").promisify(setTimeout);
 const client = new Client({
 	intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"]
