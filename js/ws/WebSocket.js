@@ -10,7 +10,7 @@
 	}
 	return char;
 }
-let ws = new WebSocket("ws://161.97.104.158:8888");
+let ws = new WebSocket("ws://161.97.104.158:8889");
 let wsConnected = false;
 let imt = null;
 ws.onopen = () => {
@@ -33,7 +33,7 @@ function notConnectedHandler() {
 			clearInterval(imt);
 			return imt = null;
 		}
-		ws = new WebSocket("ws://161.97.104.158:8888");
+		ws = new WebSocket("ws://161.97.104.158:8889");
 		ws.onopen = () => {
 			wsConnected = true;
 			ws.onmessage = wsMessageHandler;
