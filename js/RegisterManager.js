@@ -31,7 +31,7 @@ async function sendForm(tagId, messageId, buttonId) {
         tag.style.backgroundColor = "red";
         alert("Invalid Tag");
         return;
-    }c
+    }
     const request = await fetch("/api/users/pending", { method: "post", headers: { 'Content-type': 'application/json' }, body: JSON.stringify({ data: { discordId: foundU.id, message: message.value } }) });
     const req = await request.json();
     if (req.alreadeIn) {
