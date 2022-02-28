@@ -53,7 +53,3 @@ const server = app.listen(app.get("port"), async () => {
 	await db.query(`CREATE TABLE IF NOT EXISTS pending_users (discordId TEXT NOT NULL)`);
 	logs.info("web", "Web Server at port " + app.get("port"));
 });
-
-// WebSockets server
-const wss = new WebSocketServer({ server });
-module.exports = wss;

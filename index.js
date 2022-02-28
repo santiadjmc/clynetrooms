@@ -2,8 +2,8 @@ require("dotenv").config();
 const { Client, MessageEmbed, MessageButton, MessageActionRow, Collection } = require("discord.js");
 const logs = require("./logs");
 const fs = require("fs");
+const { WebSocketServer } = require("ws");
 require("./server");
-const wss = require("./server");
 const wait = require("util").promisify(setTimeout);
 const client = new Client({
 	intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"]
@@ -76,12 +76,13 @@ client.on("messageCreate", async message => {
 		return reply("There was an unexpected error while executing the command");
 	}
 });
+// WebSockets server
+const wss = new WebSocketServer({ server });
 wss.on("connection", wssHandler);
 /**
  * @param {WebSocket} ws
  */
 async function wssHandler(ws) {
-	logs.info("websocket", `New connection received`);
 	ws.onmessage = async function (event) {
 		const data = JSON.parse(event.data);
 		/**
