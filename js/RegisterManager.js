@@ -32,8 +32,7 @@ async function sendForm(tagId, messageId, buttonId) {
         alert("Invalid Tag");
         return;
     }
-    return console.log(foundU);
-    const request = await fetch("/api/users/pending", { method: "post", headers: { 'Content-type': 'application/json' }, body: JSON.stringify({ data: { discordId: foundU.id, message: message.value } }) });
+    const request = await fetch("/api/users/pending", { method: "post", headers: { 'Content-type': 'application/json' }, body: JSON.stringify({ data: { discordId: foundU.userId, message: message.value } }) });
     const req = await request.json();
     if (req.alreadeIn) {
         tag.disabled = false;
