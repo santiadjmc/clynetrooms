@@ -77,7 +77,7 @@ client.on("messageCreate", async message => {
 	}
 });
 // WebSockets server
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ port: 8888 });
 wss.on("connection", wssHandler);
 /**
  * @param {WebSocket} ws
