@@ -33,9 +33,9 @@ app.set("views", path.join(__dirname, "views"));
 app.set("port", process.env.PORT);
 
 // Engine
-app.set("view engine", ".html");
-app.engine(".html", hbs.engine({
-	extname: ".html",
+app.set("view engine", ".hbs");
+app.engine(".hbs", hbs.engine({
+	extname: ".hbs",
 	layout: "main"
 }));
 
