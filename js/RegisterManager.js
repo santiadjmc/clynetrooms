@@ -27,7 +27,7 @@ async function sendForm(tagId, messageId, buttonId) {
         btn.disabled = false;
         btn.innerText = "Enviar";
         tag.disabled = false;
-        message.disbaled = false;
+        message.disabled = false;
         tag.style.backgroundColor = "red";
         alert("Invalid Tag");
         return;
