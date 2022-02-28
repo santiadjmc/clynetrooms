@@ -26,7 +26,7 @@ router.get("/discord/users", async (req, res) => {
 router.post("/users/pending", async (req, res) => {
     const guild = BotClient.guilds.cache.first();
     const channel = await BotClient.channels.fetch("947973283331047514");
-    const user = await BotClient.users.fetch(req.body.discordId);
+    const user = await BotClient.users.fetch(req.body.data.discordId);
     const pendingUsers = await db.query("SELECT * FROM pending_users");
     if (pendingUsers.find(u => u.discordId === user.id)) return res.json({ alreadyIn: true, dmable: null });;
     try {
@@ -73,7 +73,7 @@ router.post("/users/pending", async (req, res) => {
         },
         {
             name: "Mensaje",
-            value: req.body.message
+            value: req.body.data.message
         }
     )
     .setColor("RANDOM")
