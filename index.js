@@ -3,6 +3,7 @@ const logs = require("./logs");
 const fs = require("fs");
 const { WebSocketServer } = require("ws");
 const wait = require("util").promisify(setTimeout);
+const bcrypt = require("bcryptjs");
 const client = new Client({
 	intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS", "DIRECT_MESSAGES"]
 });
@@ -72,6 +73,70 @@ client.on("messageCreate", async message => {
 	catch (err) {
 		logs.error("bot", `Could not execute command ${foundCmd.name} properly\n${err.stack}`);
 		return reply("There was an unexpected error while executing the command");
+	}
+});
+client.on("interactionCreate", async interaction => {
+	if (interaction.isButton()) {
+		if (interaction.customId.startsWith(`accept-signup-`)) {
+			await interaction.deferReply({ ephemeral: true });
+			const user = await client.users.fetch(interaction.customId.slice("accept-signup-".length));
+			try {
+				user.createDM();
+			}
+			catch (err) {
+				logs.error("bot", err.message);
+				await db.query("DELETE FROM pending_users WHERE pending_users.discordId = ?", [user.id]);
+				interaction.editReply("No se le pueden enviar mensajes al usuario, ha sido eliminada su solicitud");
+				return interaction.message.delete();
+			}
+			await db.query("DELETE FROM pending_users WHERE pending_users.discordId = ?", [user.id]);
+			interaction.editReply("Se ha aceptado al usuario, cuando se complete el formulario va a ser registrado");
+			const userMainMsg = await user.send("Tu inscripcion para unirte a Clynet Room ha sido aceptada, a continuacion te hare una serie de preguntas para tu registro");
+			async function getReply() {
+				const filter = m => !m.author.bot;
+				const collected = await userMainMsg.channel.awaitMessages({ filter, max: 1 });
+				return collected.first().content;
+			}
+			let formData = {};
+			async function getForm() {
+				await user.send("Introduce tu correo");
+				const email = await getReply();
+				const foundEmail = await db.query("SELECT * FROM users WHERE users.email = ?", [email]);
+				if (foundEmail.length > 0) {
+					user.send("Correo ya en uso, se va a reiniciar el formulario.");
+					await getForm();
+					return;
+				}
+				await user.send("Introduce tu contraseña (Esta es totalmente privada)");
+				let password = await getReply();
+				password = bcrypt.hashSync(password, bcrypt.genSaltSync());
+				await user.send("Introduce tu nombre de usuario");
+				let username = await getReply();
+				const foundUsername = await db.query("SELECT * FROM users WHERE users.username = ?", [username]);
+				if (foundUsername[0]) {
+					await user.send("Nombre de usuario ya en uso, se va a reiniciar el formulario.");
+					await getForm();
+					return;
+				}
+				if (username.length > 30) {
+					await user.send("El nombre de usuario debe tener 30 o menos caracteres, se va a reiniciar el formulario.");
+					await getForm();
+					return;
+				}
+				formData = { username, email, password }
+			}
+			await getForm();
+			await db.query("INSERT INTO users SET ?", [{
+				username: formData.username,
+				email: formData.email,
+				password: formData.password,
+				deleted: false,
+				admin: false,
+				discordId: user.id,
+				graduated: false
+			}]);
+			await user.send("Tu cuenta ha sido registrada, puedes iniciar sesion, felicidades!");
+		}
 	}
 });
 // WebSockets server
