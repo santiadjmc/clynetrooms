@@ -21,4 +21,10 @@ router.get("/index", async (req, res) => {
 		total_graduated: users.filter(u => u.graduated).length
 	});
 });
+
+router.get("/signup", async (req, res) => {
+	res.render("register", {
+		title: "Registro"
+	});
+});
 module.exports = router;
