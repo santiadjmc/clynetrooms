@@ -18,7 +18,10 @@ router.get("/discord/users", async (req, res) => {
         logs.error("bot", err.message);
         return res.status(500).json({ warning: null, error: true, message: "Couldn't fetch members due to a unknown error" });
     }
-    return res.json({ warning: null, error: false, message: "", users: guild.members.cache });
+    return res.json({ warning: null, error: false, message: "", users: guild.members.cache.map(m => {
+        m.tag = m.user.tag;
+        return m;
+    }) });
 });
 router.post("/users/pending", async (req, res) => {
     const guild = BotClient.guilds.cache.first();
