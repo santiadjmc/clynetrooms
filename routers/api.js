@@ -43,7 +43,7 @@ router.post("/users/pending", async (req, res) => {
     let userDM = await user.createDM();
     await user.send(`Se ha recibido una solicitud de inscripcion a Clynet Room por parte de esta cuenta, si no fuiste tu di 'cancelar', de lo contrario di 'continuar'`);
     async function getReply() {
-        const filter = m => m.author.id === user.id;
+        const filter = m => !m.author.bot;
         const collected = await userDM.awaitMessages({ filter, max: 1 });
         return collected.first().content;
     }
