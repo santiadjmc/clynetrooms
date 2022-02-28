@@ -1,0 +1,17 @@
+<center>
+    <span>Intorduce tu tag</span>
+    <br>
+    <input type="text" id="tag-input" placeholder="Introduce tu tag...">
+    <br>
+    <span>Envianos un mensaje en tu solicitud</span>
+    <br>
+    <textarea id="message-input" maxlength="120" placeholder="Escribe un mensaje..."></textarea>
+    <br>
+    <button id="submit-btn" type="button" onclick="sendForm('tag-input', 'message-input', 'submit-btn')">Enviar</button>
+</center>
+<style>
+    #message-input {
+        width: auto;
+        height: auto;
+    }
+</style>
