@@ -103,3 +103,4 @@ async function wssHandler(ws) {
 	}
 }
 client.login(process.env.TOKEN);
+module.exports = client;
