@@ -1,4 +1,4 @@
-async function checkUserTag(tag) {
+async function getUserByTag(tag) {
     const request = await fetch("/api/discord/users");
     const req = await request.json();
     if (req.error) {
@@ -12,4 +12,47 @@ async function checkUserTag(tag) {
     const foundUser = req.users.find(u => u.tag === tag);
     if (!foundUser) return null;
     else return foundUser;
+}
+async function sendForm(tagId, messageId, buttonId) {
+    const tag = document.getElementById(tagId);
+    const message = document.getElementById(messageId);
+    const btn = document.getElementById(buttonId);
+    tag.style.backgroundColor = "white";
+    btn.disabled = true;
+    btn.innerText = "Cargando...";
+    tag.disabled = true;
+    message.disabled = true;
+    const foundU = await getUserByTag(tag.value);
+    if (!foundU) {
+        btn.disabled = false;
+        btn.innerText = "Enviar";
+        tag.disabled = false;
+        message.disbaled = false;
+        tag.style.backgroundColor = "red";
+        alert("Invalid Tag");
+        return;
+    }c
+    const request = await fetch("/api/users/pending", { method: "post", headers: { 'Content-type': 'application/json' }, body: JSON.stringify({ data: { discordId: foundU.id, message: message.value } }) });
+    const req = await request.json();
+    if (req.alreadeIn) {
+        tag.disabled = false;
+        message.disabled = false;
+        btn.disabled = false;
+        btn.innerText = "Enviar";
+        return alert(`Ya hay una solicitud pendiente a nombre de ${foundU.displayName}`);
+    }
+    if (!req.dmable) {
+        tag.disabled = false;
+        message.disabled = false;
+        btn.disabled = false;
+        btn.innerText = "Enviar";
+        return alert(`No se pueden enviar mensajes a ${foundU.displayName}, por favor activa los mensajes directos antes de volver a intentar`);
+    }
+    btn.disabled = false;
+    tag.value = "";
+    message.value = "";
+    tag.disabled = false;
+    message.disabled = false;
+    btn.innerText = "Enviar";
+    alert(`Solicitud enviada, un mensaje de confirmacion va a ser enviado a ${foundU.displayName}`);
 }
