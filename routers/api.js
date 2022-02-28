@@ -20,6 +20,7 @@ router.get("/discord/users", async (req, res) => {
     }
     return res.json({ warning: null, error: false, message: "", users: guild.members.cache.map(m => {
         m.tag = m.user.tag;
+        m.id = m.user.id;
         return m;
     }) });
 });
