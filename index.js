@@ -138,6 +138,28 @@ client.on("interactionCreate", async interaction => {
 			}]);
 			await user.send("Tu cuenta ha sido registrada, puedes iniciar sesion, felicidades!");
 		}
+		else if (interaction.customId.startsWith("deciline-signup-")) {
+			await interaction.deferReply({ ephemeral: true });
+			const user = await client.users.fetch(interaction.customId.slice("deciline-signup-".length));
+			let dmable = true;
+			try {
+				user.createDM();
+			}
+			catch (err) {
+				logs.error("bot", err.message);
+				dmable = false;
+			}
+			await db.query("DELETE FROM pending_users WHERE pending_users.discordId = ?", [user.id]);
+			if (dmable) {
+				await user.send("Tu solicitud de inscripcion en Clynet Room ha sido rechazada");
+				interaction.editReply("El usuario ha sido rechazado y notificado.");
+				await interaction.message.delete();
+			}
+			else {
+				interaction.editReply("El usuario ha sido rechazado pero no pudo ser notificado.");
+				await interaction.message.delete();
+			}
+		}
 	}
 });
 // WebSockets server
