@@ -30,7 +30,9 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(morgan("common"));
+app.use(morgan("common", {
+	skip: (req, res) => res.statusCode !== 429
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
