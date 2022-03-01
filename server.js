@@ -53,9 +53,9 @@ app.use(async function(req, res, next) {
 		}
 	}
 	else {
-		rateLimits.set(ip, { current: 1, max: 10 });
+		rateLimits.set(ip, { current: 1, max: 100 });
 	}
-	next();
+	return next();
 });
 
 // Global variables
@@ -96,7 +96,7 @@ app.listen(app.get("port"), async () => {
 setInterval(() => {
 	for (const key of rateLimits.keys()) {
 		rateLimits.delete(key);
-		rateLimits.set(key, { current: 0, max: 10 });
+		rateLimits.set(key, { current: 0, max: 100 });
 	}
 	logs.info("web", "Ratelimits cleared");
-}, 10000);
+}, 60000);
