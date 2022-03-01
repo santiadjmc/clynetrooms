@@ -36,11 +36,11 @@ app.use(passport.session());
 app.use(flash());
 
 // Ratelimits system
-
-app.use(async function(req, res, next) {
+async function rateLimit(req, res, next) {
 	const ip = req.ip.replace("::ffff:", "");
 	if (rateLimits.has(ip)) {
-		if (rateLimits.get(ip).current === rateLimits.get(ip).max) {
+		const rObject = rateLimits.get(ip);
+		if (rObject.current === rObject.max) {
 			return res.status(429).send(`
 			<title>429 - Too many requests</title>
 			<center>
@@ -56,7 +56,7 @@ app.use(async function(req, res, next) {
 		rateLimits.set(ip, { current: 1, max: 100 });
 	}
 	return next();
-});
+} 
 
 // Global variables
 app.use(async function (req, res, next) {
@@ -83,8 +83,8 @@ app.use("/js", express.static(path.join(__dirname, "js")));
 app.use("/css", express.static(path.join(__dirname, "css")));
 app.use("/img", express.static(path.join(__dirname, "img")));
 app.use("/vendor", express.static(path.join(__dirname, "vendor")));
-app.use("/", require("./routers/main"));
-app.use("/api", require("./routers/api"));
+app.use("/", rateLimit, require("./routers/main"));
+app.use("/api", rateLimit, require("./routers/api"));
 
 // Web start
 app.listen(app.get("port"), async () => {
