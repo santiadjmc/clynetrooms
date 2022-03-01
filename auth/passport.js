@@ -19,7 +19,7 @@ passport.use("login", new LocalStrategy({
 }, async (req, username, password, done) => {
     const users = await db.query("SELECT * FROM users");
     let user = null;
-    if (!user.find(u => u.username === username)) return done(null, false, req.flash("error", "Unknown user"));
+    if (!users.find(u => u.username === username)) return done(null, false, req.flash("error", "Unknown user"));
     else user = users[users.indexOf(users.find(u => u.username === username))];
     if (!bcrypt.compareSync(password, user.password)) return done(null, false, req.flash("error", "Incorrect password"));
     return done(null, user, req.flash("success", `Bienvenido de vuelta, ${user.username}`));
