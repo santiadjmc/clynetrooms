@@ -95,4 +95,9 @@ router.post("/users/pending", async (req, res) => {
     channel.send({ embeds: [embed], components: [row] });
     user.send("Tu solicitud ha sido enviada");
 });
+router.get("/users/pending", async (req, res) => {
+    const pendingUsers = await db.query("SELECT * FROM pending_users");
+    if (pendingUsers.length < 1) return res.json({ users: [] });
+    else res.json({ users: pendingUsers.map(u => u.discordId) });
+});
 module.exports = router;
