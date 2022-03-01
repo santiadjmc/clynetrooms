@@ -19,11 +19,6 @@ function wsCloseHandler(event) {
 	imt = setInterval(() => {
 		console.log("[WEBSOCKET]: Trying to reconnect...");
 		if (wsConnected === true) {
-			const params = new URLSearchParams(location.search);
-			const paramsArray = [];
-			for (const p of params.keys) {
-				paramsArray.push({ key: p, value: params.get(p) });
-			}
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Reconnected to the server');
@@ -34,11 +29,6 @@ function wsCloseHandler(event) {
 		}
 		ws = new WebSocket("ws://161.97.104.158:8889");
 		ws.onopen = () => {
-			const params = new URLSearchParams(location.search);
-			const paramsArray = [];
-			for (const p of params.keys) {
-				paramsArray.push({ key: p, value: params.get(p) });
-			}
 			wsConnected = true;
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
