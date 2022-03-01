@@ -48,7 +48,7 @@ router.post("/users/pending", async (req, res) => {
     }
     res.json({ alreadyIn: false, dmable: true, alreadyRegistered: false, alreadyConfirmating: false });
     let userDM = await user.createDM();
-    await user.send(`Se ha recibido una solicitud de inscripcion a Clynet Room por parte de esta cuenta, si no fuiste tu di 'cancelar', de lo contrario di 'continuar'`);
+    await user.send(`Se ha recibido una solicitud de inscripcion a Clynet Room a nombre de esta cuenta, si no fuiste tu di 'cancelar', de lo contrario di 'continuar'`);
     activeConfirmations.set(user.id, true);
     async function getReply() {
         const filter = m => true;
