@@ -39,7 +39,7 @@ async function sendForm(tagId, messageId, buttonId) {
         message.disabled = false;
         btn.disabled = false;
         btn.innerText = "Enviar";
-        return alert(`No se pueden enviar mensajes a ${foundU.displayName}, por favor activa los mensajes directos antes de volver a intentar`);
+        return alert(`Ya hay una solicitud pendiente a nombre de ${foundU.displayName}`);
     }
     if (req.alreadyRegistered) {
         tag.disabled = false;
@@ -53,7 +53,7 @@ async function sendForm(tagId, messageId, buttonId) {
         message.disabled = false;
         btn.disabled = false;
         btn.innerText = "Enviar";
-        return alert(`Ya hay una solicitud pendiente a nombre de ${foundU.displayName}`);
+        return alert(`No se pueden enviar mensajes a ${foundU.displayName}, por favor activa los mensajes directos antes de volver a intentar`);
     }
     btn.disabled = false;
     tag.value = "";
