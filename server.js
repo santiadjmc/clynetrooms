@@ -41,6 +41,7 @@ function rateLimit(req, res, next) {
 	if (rateLimits.has(ip)) {
 		const rObject = rateLimits.get(ip);
 		if (rObject.current === rObject.max) {
+			logs.info("web", `IP ${ip} on ratelimit`);
 			return res.status(429).send(`
 			<title>429 - Too many requests</title>
 			<center>
