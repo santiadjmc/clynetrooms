@@ -37,15 +37,14 @@ router.post("/users/pending", async (req, res) => {
     const users = await db.query("SELECT * FROM users");
     if (pendingUsers.find(u => u.discordId === user.id)) return res.json({ alreadyIn: true, dmable: null, alreadyRegistered: null });;
     if (users.find(u => u.discordId === user.id)) return res.json({ alreadyIn: false, dmable: null, alreadyRegistered: true });
-    let testmsg = null;
     try {
-        testmsg = await user.send(".");
+        const testmsg = await user.send(".");
+        testmsg.delete();
     }
     catch (err) {
         logs.error("bot", err.message);
         return res.json({ alreadyIn: false, dmable: false, alreadyRegistered: false });
     }
-    if (testmsg) await testmsg.delete();
     res.json({ alreadyIn: false, dmable: true, alreadyRegistered: false });
     let userDM = await user.createDM();
     await user.send(`Se ha recibido una solicitud de inscripcion a Clynet Room por parte de esta cuenta, si no fuiste tu di 'cancelar', de lo contrario di 'continuar'`);
