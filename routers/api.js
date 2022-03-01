@@ -3,12 +3,12 @@ const db = require("../db");
 const logs = require("../logs");
 const router = Router();
 const BotClient = require("../index");
-const { MessageActionRow, MessageButton, MessageEmbed, TextChannel } = require("discord.js");
+const { MessageActionRow, MessageButton, MessageEmbed, TextChannel, Collection } = require("discord.js");
 
 router.get("/", (req, res) => {
     res.status(403).json({ status: 403, message: "Forbbiden" });
 });
-
+const activeConfirmations = new Collection();
 router.get("/discord/users", async (req, res) => {
     const guild = BotClient.guilds.cache.first();
     try {
@@ -35,25 +35,28 @@ router.post("/users/pending", async (req, res) => {
     const user = await BotClient.users.fetch(req.body.data.discordId);
     const pendingUsers = await db.query("SELECT * FROM pending_users");
     const users = await db.query("SELECT * FROM users");
-    if (pendingUsers.find(u => u.discordId === user.id)) return res.json({ alreadyIn: true, dmable: null, alreadyRegistered: null });;
-    if (users.find(u => u.discordId === user.id)) return res.json({ alreadyIn: false, dmable: null, alreadyRegistered: true });
+    if (activeConfirmations.has(user.id)) return res.json({ alreadyIn: null, dmable: null, alreadyRegistered: null, alreadyConfirmating: true });
+    if (pendingUsers.find(u => u.discordId === user.id)) return res.json({ alreadyIn: true, dmable: null, alreadyRegistered: null, alreadyConfirmating: false });;
+    if (users.find(u => u.discordId === user.id)) return res.json({ alreadyIn: false, dmable: null, alreadyRegistered: true, alreadyConfirmating: false });
     try {
         const testmsg = await user.send(".");
         testmsg.delete();
     }
     catch (err) {
         logs.error("bot", err.message);
-        return res.json({ alreadyIn: false, dmable: false, alreadyRegistered: false });
+        return res.json({ alreadyIn: false, dmable: false, alreadyRegistered: false, alreadyConfirmating: false });
     }
-    res.json({ alreadyIn: false, dmable: true, alreadyRegistered: false });
+    res.json({ alreadyIn: false, dmable: true, alreadyRegistered: false, alreadyConfirmating: false });
     let userDM = await user.createDM();
     await user.send(`Se ha recibido una solicitud de inscripcion a Clynet Room por parte de esta cuenta, si no fuiste tu di 'cancelar', de lo contrario di 'continuar'`);
+    activeConfirmations.set(user.id, true);
     async function getReply() {
         const filter = m => true;
         const collected = await userDM.awaitMessages({ filter, max: 1 });
         return collected.first().content;
     }
     let confirmation = await getReply();
+    activeConfirmations.delete(user.id);
     if (confirmation.toLowerCase().startsWith("cancelar")) {
         await user.send("Se ha cancelado la solicitud, gracias por confirmar.");
         return;

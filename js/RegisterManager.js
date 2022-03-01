@@ -34,6 +34,13 @@ async function sendForm(tagId, messageId, buttonId) {
     }
     const request = await fetch("/api/users/pending", { method: "post", headers: { 'Content-type': 'application/json' }, body: JSON.stringify({ data: { discordId: foundU.userId, message: message.value } }) });
     const req = await request.json();
+    if (req.alreadyConfirmating) {
+        tag.disabled = false;
+        message.disabled = false;
+        btn.disabled = false;
+        btn.innerText = "Enviar";
+        return alert(`Ya se ha enviado el mensaje de confirmacion, por favor revisa tus mensajes directos.`);
+    }
     if (req.alreadeIn) {
         tag.disabled = false;
         message.disabled = false;
