@@ -70,7 +70,7 @@ router.post("/users/pending", async (req, res) => {
                 .setLabel("Aceptar")
                 .setStyle("SUCCESS"),
             new MessageButton()
-                .setCustomId(`decilne-signup-${user.id}`)
+                .setCustomId(`deciline-signup-${user.id}`)
                 .setLabel("Rechazar")
                 .setStyle("DANGER")
         );
