@@ -11,6 +11,7 @@ const db = require("./db");
 const passport = require("passport");
 const MySqlStore = require("express-mysql-session");
 const { Collection } = require("discord.js");
+const morgan = require("morgan");
 require("./auth/passport");
 require("./index");
 const rateLimits = new Collection();
@@ -29,6 +30,7 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(morgan("common"));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -84,12 +86,6 @@ app.use("/img", express.static(path.join(__dirname, "img")));
 app.use("/vendor", express.static(path.join(__dirname, "vendor")));
 app.use("/", rateLimit, require("./routers/main"));
 app.use("/api", rateLimit, require("./routers/api"));
-
-// Logs
-app.use("/", (req, res, next) => {
-	console.log(`${req.method.toUpperCase()} ${req.originalUrl} ${res.statusCode.toString()}`);
-	next();
-});
 
 // Web start
 app.listen(app.get("port"), async () => {
