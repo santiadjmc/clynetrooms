@@ -96,8 +96,7 @@ app.listen(app.get("port"), async () => {
 
 setInterval(() => {
 	for (const key of rateLimits.keys()) {
-		rateLimits.delete(key);
-		rateLimits.set(key, { current: 0, max: 100 });
+		rateLimits.get(key).current = 0;
 	}
 	logs.info("web", `Ratelimits cleared, IPs registered on ratelimit: ${rateLimits.size}`);
 }, 60000);
