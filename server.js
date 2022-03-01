@@ -10,6 +10,7 @@ const morgan = require("morgan");
 const logs = require("./logs");
 const db = require("./db");
 const passport = require("passport");
+const MySqlStore = require("express-mysql-session");
 require("./auth/passport");
 require("./index");
 
@@ -17,7 +18,13 @@ require("./index");
 app.use(session({
 	secret: "sEkreTTt",
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	store: new MySqlStore({
+		host: process.env.DB_HOST,
+		user: process.env.DB_USER,
+		password: process.env.DB_PASSWORD,
+		database: process.env.DB_NAME
+	})
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
