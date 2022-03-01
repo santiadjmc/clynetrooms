@@ -36,7 +36,7 @@ router.post("/users/pending", async (req, res) => {
     const pendingUsers = await db.query("SELECT * FROM pending_users");
     const users = await db.query("SELECT * FROM users");
     if (pendingUsers.find(u => u.discordId === user.id)) return res.json({ alreadyIn: true, dmable: null, alreadyRegistered: null });;
-    if (users.find(u => u.id === user.id)) return res.json({ alreadyIn: false, dmable: null, alreadyRegistered: true });
+    if (users.find(u => u.discordId === user.id)) return res.json({ alreadyIn: false, dmable: null, alreadyRegistered: true });
     try {
         user.createDM();
     }
