@@ -11,8 +11,8 @@ function genSocketId(length) {
 	return char;
 }
 const params = [];
-const params= window.location.search.replace("?", "").trim().split("&");
-for (const p of params) {
+const paramsArray = window.location.search.replace("?", "").trim().split("&");
+for (const p of paramsArray) {
 	params.push({ key: p.split("=")[0], value: p.split("=")[1] });
 }
 let ws = new WebSocket("ws://161.97.104.158:8889");
