@@ -99,8 +99,10 @@ app.listen(app.get("port"), async () => {
 });
 
 setInterval(() => {
+	let count = 0;
 	for (const key of rateLimits.keys()) {
-		rateLimits.get(key).current = 0;
+		rateLimits.delete(key);
+		count += 1;
 	}
 	logs.info("web", `Ratelimits cleared, IPs registered on ratelimit: ${rateLimits.size}`);
 }, 60000);
