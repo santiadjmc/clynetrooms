@@ -36,7 +36,7 @@ router.post("/users/pending", async (req, res) => {
     const pendingUsers = await db.query("SELECT * FROM pending_users");
     if (pendingUsers.find(u => u.discordId === user.id)) return res.json({ alreadyIn: true, dmable: null });;
     try {
-        user.send("Mensaje de prueba");
+        user.createDM();
     }
     catch (err) {
         logs.error("bot", err.message);
