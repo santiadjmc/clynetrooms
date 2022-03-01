@@ -81,8 +81,9 @@ client.on("interactionCreate", async interaction => {
 		if (interaction.customId.startsWith(`accept-signup-`)) {
 			await interaction.deferReply({ ephemeral: true });
 			const user = await client.users.fetch(interaction.customId.slice("accept-signup-".length));
+			let testmsg;
 			try {
-				user.createDM();
+				testmsg = await user.send(".");
 			}
 			catch (err) {
 				logs.error("bot", err.message);
@@ -90,6 +91,7 @@ client.on("interactionCreate", async interaction => {
 				interaction.editReply("No se le pueden enviar mensajes al usuario, ha sido eliminada su solicitud");
 				return interaction.message.delete();
 			}
+			if (testmsg) await testmsg.delete();
 			await db.query("DELETE FROM pending_users WHERE pending_users.discordId = ?", [user.id]);
 			interaction.editReply("Se ha aceptado al usuario, cuando se complete el formulario va a ser registrado");
 			const userMainMsg = await user.send("Tu inscripcion para unirte a Clynet Room ha sido aceptada, a continuacion te hare una serie de preguntas para tu registro");
@@ -142,13 +144,15 @@ client.on("interactionCreate", async interaction => {
 			await interaction.deferReply({ ephemeral: true });
 			const user = await client.users.fetch(interaction.customId.slice("deciline-signup-".length));
 			let dmable = true;
+			let testmsg;
 			try {
-				user.createDM();
+				testmsg = await user.send(".");
 			}
 			catch (err) {
 				logs.error("bot", err.message);
 				dmable = false;
 			}
+			if (testmsg) await testmsg.delete();
 			await db.query("DELETE FROM pending_users WHERE pending_users.discordId = ?", [user.id]);
 			if (dmable) {
 				await user.send("Tu solicitud de inscripcion en Clynet Room ha sido rechazada");
