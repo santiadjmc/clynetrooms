@@ -7,7 +7,7 @@ passport.serializeUser((user, done) => {
     return done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
+passport.deserializeUser(async (id, done) => {
     const foundU = await db.query("SELECT * FROM users WHERE users.id = ?", [id]);
     return done(null, foundU[0] ? foundU[0] : null);
 });
