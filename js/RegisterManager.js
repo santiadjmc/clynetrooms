@@ -41,6 +41,13 @@ async function sendForm(tagId, messageId, buttonId) {
         btn.innerText = "Enviar";
         return alert(`No se pueden enviar mensajes a ${foundU.displayName}, por favor activa los mensajes directos antes de volver a intentar`);
     }
+    if (req.alreadyRegistered) {
+        tag.disabled = false;
+        message.disabled = false;
+        btn.disabled = false;
+        btn.innerText = "Enviar";
+        return alert(`Ya hay una cuenta registrada a nombre del usuario ${foundU.displayName}`);
+    }
     if (!req.dmable) {
         tag.disabled = false;
         message.disabled = false;
