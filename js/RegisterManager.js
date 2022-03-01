@@ -41,7 +41,7 @@ async function sendForm(tagId, messageId, buttonId) {
         btn.innerText = "Enviar";
         return alert(`Ya se ha enviado el mensaje de confirmacion, por favor revisa tus mensajes directos.`);
     }
-    if (req.alreadeIn) {
+    if (req.alreadyIn) {
         tag.disabled = false;
         message.disabled = false;
         btn.disabled = false;
