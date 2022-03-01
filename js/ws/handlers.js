@@ -19,22 +19,32 @@ function wsCloseHandler(event) {
 	imt = setInterval(() => {
 		console.log("[WEBSOCKET]: Trying to reconnect...");
 		if (wsConnected === true) {
+			const params = new URLSearchParams(location.search);
+			const paramsArray = [];
+			for (const p of params.keys) {
+				paramsArray.push({ key: p, value: params.get(p) });
+			}
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Reconnected to the server');
 			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${paramsArray.map(param => `${param.key}=${param.value}`).join("&")}`] }));
 			clearInterval(imt);
 			return imt = null;
 		}
 		ws = new WebSocket("ws://161.97.104.158:8889");
 		ws.onopen = () => {
+			const params = new URLSearchParams(location.search);
+			const paramsArray = [];
+			for (const p of params.keys) {
+				paramsArray.push({ key: p, value: params.get(p) });
+			}
 			wsConnected = true;
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Reconnected to the server');
 			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${paramsArray.map(param => `${param.key}=${param.value}`).join("&")}`] }));
 			clearInterval(imt);
 			imt = null;
 		}

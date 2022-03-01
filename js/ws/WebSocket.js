@@ -2,7 +2,7 @@
  * @param {number} length
  * @returns {string}
  */
- function genSocketId(length) {
+function genSocketId(length) {
 	const chars = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
 	let char = "";
 	for (let i = 0; i < length; i++) {
@@ -15,8 +15,13 @@ let wsConnected = false;
 let imt = null;
 ws.onopen = () => {
 	console.log("[WEBSOCKET]: Connected to the server");
+	const params = new URLSearchParams(location.search);
+	const paramsArray = [];
+	for (const p of params.keys) {
+		paramsArray.push({ key: p, value: params.get(p) });
+	}
 	ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-	ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
+	ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${paramsArray.map(param => `${param.key}=${param.value}`).join("&")}`] }));
 	wsConnected = true;
 }
 function notConnectedHandler() {
@@ -28,8 +33,13 @@ function notConnectedHandler() {
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Connected to the server');
+			const params = new URLSearchParams(location.search);
+			const paramsArray = [];
+			for (const p of params.keys) {
+				paramsArray.push({ key: p, value: params.get(p) });
+			}
 			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${paramsArray.map(param => `${param.key}=${param.value}`).join("&")}`] }));
 			clearInterval(imt);
 			return imt = null;
 		}
@@ -39,8 +49,13 @@ function notConnectedHandler() {
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Connected to the server');
+			const params = new URLSearchParams(location.search);
+			const paramsArray = [];
+			for (const p of params.keys) {
+				paramsArray.push({ key: p, value: params.get(p) });
+			}
 			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${paramsArray.map(param => `${param.key}=${param.value}`).join("&")}`] }));
 			clearInterval(imt);
 			imt = null;
 		}
