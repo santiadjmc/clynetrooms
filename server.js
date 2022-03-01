@@ -49,13 +49,14 @@ function rateLimit(req, res, next) {
 			`);
 		}
 		else {
-			rateLimits.set(ip, { current: rateLimits.get(ip) + 1, max: rateLimits.get(ip).max });
+			rateLimits.get(ip).current = rObject.current + 1;
+			next();
 		}
 	}
 	else {
 		rateLimits.set(ip, { current: 1, max: 100 });
+		next();
 	}
-	return next();
 } 
 
 // Global variables
@@ -98,5 +99,5 @@ setInterval(() => {
 		rateLimits.delete(key);
 		rateLimits.set(key, { current: 0, max: 100 });
 	}
-	logs.info("web", "Ratelimits cleared");
+	logs.info("web", `Ratelimits cleared, IPs registered on ratelimit: ${rateLimits.lenght}`);
 }, 60000);
