@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const db = require("../db");
 const router = Router();
+const passport = require("passport");
 function onlyAdmin(req, res, next) {
 	if (req.user.admin) {
 		return next();
@@ -45,6 +46,20 @@ router.get("/index", async (req, res) => {
 router.get("/signup", onlyNoAuth, async (req, res) => {
 	res.render("register", {
 		title: "Registro"
+	});
+});
+router.get("/signin", onlyNoAuth, async (req, res) => {
+	res.render("login", {
+		title: "Singin"
+	});
+});
+router.post("/signin", onlyNoAuth, passport.authenticate("login", {
+	successRedirect: "/profile",
+	failureRedirect: "/signin?failed=true"
+}));
+router.get("/profile", onlyAuth, async (req, res) => {
+	res.render("profile", {
+		title: `${req.user.username} - Clynet Room`
 	});
 });
 module.exports = router;
