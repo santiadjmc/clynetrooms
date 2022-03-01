@@ -2,7 +2,7 @@ const { Router } = require("express");
 const db = require("../db");
 const logs = require("../logs");
 const router = Router();
-const BotClient = require("../index").client;
+const BotClient = require("../index");
 const { MessageActionRow, MessageButton, MessageEmbed, TextChannel, Collection } = require("discord.js");
 
 router.get("/", (req, res) => {

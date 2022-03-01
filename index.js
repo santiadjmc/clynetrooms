@@ -5,6 +5,7 @@ const { WebSocketServer } = require("ws");
 const wait = require("util").promisify(setTimeout);
 const bcrypt = require("bcryptjs");
 const db = require("./db");
+const wss = require("./WebSocketServer");
 const client = new Client({
 	intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS", "DIRECT_MESSAGES"]
 });
@@ -171,7 +172,6 @@ client.on("interactionCreate", async interaction => {
 	}
 });
 // WebSockets server
-const wss = new WebSocketServer({ port: 8889 });
 wss.on("connection", wssHandler);
 /**
  * @param {WebSocket} ws
@@ -198,7 +198,4 @@ async function wssHandler(ws) {
 	}
 }
 client.login(process.env.TOKEN);
-module.exports = {
-	client,
-	wss
-}
+module.exports = client;

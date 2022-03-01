@@ -1,4 +1,4 @@
-const { wss } = require("../index");
+const wss = require("../WebSocketServer");
 module.exports = {
 	name: "sockets",
 	description: "Shows connected sockets",
