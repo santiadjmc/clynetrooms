@@ -6,7 +6,6 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const { WebSocketServer } = require("ws");
 const path = require("path");
-const morgan = require("morgan");
 const logs = require("./logs");
 const db = require("./db");
 const passport = require("passport");
@@ -30,7 +29,6 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(morgan("dev"));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -41,7 +39,6 @@ function rateLimit(req, res, next) {
 	if (rateLimits.has(ip)) {
 		const rObject = rateLimits.get(ip);
 		if (rObject.current === rObject.max) {
-			logs.info("web", `IP ${ip} on ratelimit`);
 			return res.status(429).send(`
 			<title>429 - Too many requests</title>
 			<center>
@@ -87,6 +84,12 @@ app.use("/img", express.static(path.join(__dirname, "img")));
 app.use("/vendor", express.static(path.join(__dirname, "vendor")));
 app.use("/", rateLimit, require("./routers/main"));
 app.use("/api", rateLimit, require("./routers/api"));
+
+// Logs
+app.use("/", (req, res, next) => {
+	console.log(`${req.method.toUpperCase()} ${req.originalUrl} ${res.statusCode.toString()}`);
+	next();
+});
 
 // Web start
 app.listen(app.get("port"), async () => {
