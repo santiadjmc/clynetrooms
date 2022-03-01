@@ -152,7 +152,6 @@ client.on("interactionCreate", async interaction => {
 			catch (err) {
 				logs.error("bot", err.message);
 				dmable = false;
-				return;
 			}
 			if (testmsg) await testmsg.delete();
 			await db.query("DELETE FROM pending_users WHERE pending_users.discordId = ?", [user.id]);
