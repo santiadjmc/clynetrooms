@@ -1,4 +1,4 @@
-const wss = require("../server");
+const { wss } = require("../index");
 module.exports = {
 	name: "reload",
 	description: "Reload all sockets or an specific one",
