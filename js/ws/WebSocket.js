@@ -33,8 +33,6 @@ function notConnectedHandler() {
 			ws.onmessage = wsMessageHandler;
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Connected to the server');
-			const params = new URLSearchParams(window.location.search);
-			const params = [];
 			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
 			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${params.map(param => `${param.key}=${param.value}`).join("&")}`] }));
 			clearInterval(imt);
