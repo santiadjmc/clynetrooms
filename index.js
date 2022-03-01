@@ -13,6 +13,9 @@ const prefix = "c.";
 client.on("ready", async () => {
 	logs.success("bot", "Logged into discord");
 });
+process.on("unhandledRejection", async err => {
+	logs.error("system", err.stack);
+});
 
 client.commands = new Collection();
 const cmdsDir = fs.readdirSync("commands").filter(file => file.endsWith(".js"));
