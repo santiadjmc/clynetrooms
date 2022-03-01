@@ -63,18 +63,26 @@ router.get("/signup", onlyNoAuth, async (req, res) => {
 		title: "Registro"
 	});
 });
+
 router.get("/signin", onlyNoAuth, async (req, res) => {
 	res.render("login", {
 		title: "Singin"
 	});
 });
+
 router.post("/signin", onlyNoAuth, passport.authenticate("login", {
 	successRedirect: "/profile",
 	failureRedirect: "/signin?failed=true"
 }));
+
 router.get("/profile", onlyAuth, async (req, res) => {
 	res.render("profile", {
 		title: `${req.user.username} - Clynet Room`
 	});
+});
+
+router.get("/logout", onlyAuth, async (req, res) => {
+	req.logout();
+	res.redirect("/signin");
 });
 module.exports = router;
