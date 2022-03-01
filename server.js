@@ -36,7 +36,7 @@ app.use(passport.session());
 app.use(flash());
 
 // Ratelimits system
-async function rateLimit(req, res, next) {
+function rateLimit(req, res, next) {
 	const ip = req.ip.replace("::ffff:", "");
 	if (rateLimits.has(ip)) {
 		const rObject = rateLimits.get(ip);
