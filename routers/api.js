@@ -16,7 +16,7 @@ router.get("/discord/users", async (req, res) => {
     }
     catch (err) {
         logs.error("bot", err.message);
-        return res.status(500).json({ warning: null, error: true, message: "Couldn't fetch members due to a unknown error" });
+        return res.status(500).json({ warning: null, error: true, message: "Couldn't fetch members due to an unknown error" });
     }
     return res.json({
         warning: null, error: false, message: "", users: guild.members.cache.map(m => {
