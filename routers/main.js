@@ -1,6 +1,26 @@
 const { Router } = require("express");
 const db = require("../db");
 const router = Router();
+function onlyAdmin(req, res, next) {
+	if (req.user.admin) {
+		return next();
+	}
+	res.render("401", {
+		title: "Forbbiden"
+	});
+}
+function onlyAuth(req, res, next) {
+	if (!req.isAuthenticated()) {
+		return res.render("401");
+	}
+	next();
+}
+function onlyNoAuth(req, res, next) {
+	if (req.isAuthenticated()) {
+		return res.redirect("/");
+	}
+	next();
+}
 
 router.get("/", (req, res) => res.redirect("/index"));
 
