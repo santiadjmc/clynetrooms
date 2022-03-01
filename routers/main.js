@@ -2,6 +2,11 @@ const { Router } = require("express");
 const db = require("../db");
 const router = Router();
 const passport = require("passport");
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 function onlyAdmin(req, res, next) {
 	if (req.user.admin) {
 		return next();
@@ -10,15 +15,25 @@ function onlyAdmin(req, res, next) {
 		title: "Forbbiden"
 	});
 }
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 function onlyAuth(req, res, next) {
 	if (!req.isAuthenticated()) {
 		return res.render("401");
 	}
 	next();
 }
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 function onlyNoAuth(req, res, next) {
-	if (req.isAuthenticated()) {
-		return res.redirect("/");
+	if (req.isAuthenticated) {
+		return res.redirect("/profile");
 	}
 	next();
 }
