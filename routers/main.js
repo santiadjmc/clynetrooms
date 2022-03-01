@@ -32,7 +32,7 @@ function onlyAuth(req, res, next) {
  * @param {import("express").NextFunction} next
  */
 function onlyNoAuth(req, res, next) {
-	if (req.isAuthenticated) {
+	if (req.isAuthenticated()) {
 		return res.redirect("/profile");
 	}
 	next();
