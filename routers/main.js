@@ -42,7 +42,7 @@ router.get("/index", async (req, res) => {
 	});
 });
 
-router.get("/signup", async (req, res) => {
+router.get("/signup", onlyNoAuth, async (req, res) => {
 	res.render("register", {
 		title: "Registro"
 	});
