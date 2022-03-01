@@ -29,6 +29,7 @@ async function sendForm(tagId, messageId, buttonId) {
         tag.disabled = false;
         message.disabled = false;
         tag.style.backgroundColor = "red";
+        setTimeout(() => tag.style.backgroundColor = "white", 3000);
         alert("Invalid Tag");
         return;
     }
