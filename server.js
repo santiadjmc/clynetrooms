@@ -11,8 +11,10 @@ const logs = require("./logs");
 const db = require("./db");
 const passport = require("passport");
 const MySqlStore = require("express-mysql-session");
+const { Collection } = require("discord.js");
 require("./auth/passport");
 require("./index");
+const rateLimits = new Collection();
 
 // Middlewares
 app.use(session({
@@ -33,11 +35,35 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+// Ratelimits system
+
+app.use(async function(req, res, next) {
+	const ip = req.ip.replace("::ffff:", "");
+	if (rateLimits.has(ip)) {
+		if (rateLimits.get(ip).current === rateLimits.get(ip).max) {
+			return res.status(429).send(`
+			<title>429 - Too many requests</title>
+			<center>
+			<h1>Too many requests</h1>
+			</center>
+			`);
+		}
+		else {
+			rateLimits.set(ip, { current: rateLimits.get(ip) + 1, max: rateLimits.get(ip).max });
+		}
+	}
+	else {
+		rateLimits.set(ip, { current: 1, max: 10 });
+	}
+	next();
+});
+
 // Global variables
 app.use(async function (req, res, next) {
 	app.locals.error = req.flash("error");
 	app.locals.success = req.flash("success");
 	app.locals.user = req.user;
+	app.locals.ip = req.ip.replace("::ffff:", "");
 	next();
 });
 
@@ -66,3 +92,11 @@ app.listen(app.get("port"), async () => {
 	await db.query(`CREATE TABLE IF NOT EXISTS pending_users (discordId TEXT NOT NULL)`);
 	logs.info("web", "Web Server at port " + app.get("port"));
 });
+
+setInterval(() => {
+	for (const key of rateLimits.keys()) {
+		rateLimits.delete(key);
+		rateLimits.set(key, { current: 0, max: 10 });
+	}
+	logs.info("web", "Ratelimits cleared");
+}, 10000);
