@@ -23,7 +23,7 @@ function wsCloseHandler(event) {
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Reconnected to the server');
 			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${paramsArray.map(param => `${param.key}=${param.value}`).join("&")}`] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${params.map(param => `${param.key}=${param.value}`).join("&")}`] }));
 			clearInterval(imt);
 			return imt = null;
 		}
@@ -34,7 +34,7 @@ function wsCloseHandler(event) {
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Reconnected to the server');
 			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${paramsArray.map(param => `${param.key}=${param.value}`).join("&")}`] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + `?${params.map(param => `${param.key}=${param.value}`).join("&")}`] }));
 			clearInterval(imt);
 			imt = null;
 		}
