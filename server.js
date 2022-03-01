@@ -104,5 +104,5 @@ setInterval(() => {
 		rateLimits.delete(key);
 		count += 1;
 	}
-	logs.info("web", `Ratelimits cleared, IPs registered on ratelimit: ${rateLimits.size}`);
+	logs.info("web", `Ratelimits cleared, IPs removed: ${count}`);
 }, 60000);
