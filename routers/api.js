@@ -86,6 +86,10 @@ router.post("/users/pending", async (req, res) => {
                 value: user.tag,
             },
             {
+                name: "IP",
+                value: req.body.data.ip
+            },
+            {
                 name: "Mensaje",
                 value: req.body.data.message
             }

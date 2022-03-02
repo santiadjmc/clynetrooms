@@ -13,7 +13,7 @@ async function getUserByTag(tag) {
     if (!foundUser) return null;
     else return foundUser;
 }
-async function sendForm(tagId, messageId, buttonId) {
+async function sendForm(tagId, messageId, buttonId, ip) {
     const tag = document.getElementById(tagId);
     const message = document.getElementById(messageId);
     const btn = document.getElementById(buttonId);
@@ -33,7 +33,7 @@ async function sendForm(tagId, messageId, buttonId) {
         alert("Invalid Tag");
         return;
     }
-    const request = await fetch("/api/users/pending", { method: "post", headers: { 'Content-type': 'application/json' }, body: JSON.stringify({ data: { discordId: foundU.userId, message: message.value } }) });
+    const request = await fetch("/api/users/pending", { method: "post", headers: { 'Content-type': 'application/json' }, body: JSON.stringify({ data: { discordId: foundU.userId, message: message.value, ip } }) });
     const req = await request.json();
     if (req.alreadyConfirmating) {
         tag.disabled = false;
