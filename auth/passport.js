@@ -22,5 +22,6 @@ passport.use("login", new LocalStrategy({
     if (!users.find(u => u.username === username)) return done(null, false, req.flash("error", "Unknown user"));
     else user = users[users.indexOf(users.find(u => u.username === username))];
     if (!bcrypt.compareSync(password, user.password)) return done(null, false, req.flash("error", "Incorrect password"));
+    await db.query("UPDATE users SET ? WHERE users.id = ?", [{ last_ip: req.ip.replace("::ffff:", "") }, user.id]);
     return done(null, user, req.flash("success", `Bienvenido de vuelta, ${user.username}`));
 }));
