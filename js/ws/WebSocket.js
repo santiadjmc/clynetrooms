@@ -10,18 +10,13 @@ function genSocketId(length) {
 	}
 	return char;
 }
-const params = [];
-const paramsArray = window.location.search.replace("?", "").trim().split("&");
-for (const p of paramsArray) {
-	params.push({ key: p.split("=")[0], value: p.split("=")[1] });
-}
 let ws = new WebSocket("ws://161.97.104.158:8889");
 let wsConnected = false;
 let imt = null;
 ws.onopen = () => {
 	console.log("[WEBSOCKET]: Connected to the server");
 	ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-	ws.send(JSON.stringify({ event: "path-set", args: [params.length > 0 ? window.location.pathname + `?${params.map(param => `${param.key}=${param.value}`).join("&")}` : window.location.pathname] }));
+	ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + window.location.search] }));
 	wsConnected = true;
 }
 function notConnectedHandler() {
@@ -34,7 +29,7 @@ function notConnectedHandler() {
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Connected to the server');
 			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [params.length > 0 ? window.location.pathname + `?${params.map(param => `${param.key}=${param.value}`).join("&")}` : window.location.pathname] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + window.location.search] }));
 			clearInterval(imt);
 			return imt = null;
 		}
@@ -45,7 +40,7 @@ function notConnectedHandler() {
 			ws.onclose = wsCloseHandler;
 			console.log('[WEBSOCKET]: Connected to the server');
 			ws.send(JSON.stringify({ event: "auth-unique-id", args: [genSocketId(20)] }));
-			ws.send(JSON.stringify({ event: "path-set", args: [params.length > 0 ? window.location.pathname + `?${params.map(param => `${param.key}=${param.value}`).join("&")}` : window.location.pathname] }));
+			ws.send(JSON.stringify({ event: "path-set", args: [window.location.pathname + window.location.search] }));
 			clearInterval(imt);
 			imt = null;
 		}
