@@ -67,6 +67,17 @@ app.use(async function (req, res, next) {
 	app.locals.success = req.flash("success");
 	app.locals.user = req.user;
 	app.locals.ip = req.ip.replace("::ffff:", "");
+	if (req.user) {
+		if (req.user.admin) {
+			app.locals.isAdmin = true;
+		}
+		else {
+			delete app.locals.isAdmin;
+		}
+	}
+	else {
+		delete app.locals.isAdmin;
+	}
 	next();
 });
 
