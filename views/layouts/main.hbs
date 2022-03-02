@@ -4,6 +4,15 @@
 		<title>{{title}}</title>
 	</head>
 	<body>
+		<script>
+			const params = new Map();
+			const searchParams = location.search.replace("?", "").trim().split("&");
+			if (searchParams.length > 0) {
+				for (const p of searchParams) {
+					params.set(p.split("=")[0], p.split("=")[1]);
+				}
+			}
+		</script>
 		<script src="/js/ws/WebSocket.js"></script>
 		{{{body}}}
 		<script src="/js/ws/handlers.js"></script>
