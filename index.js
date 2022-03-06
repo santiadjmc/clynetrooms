@@ -185,7 +185,7 @@ async function wssHandler(ws) {
 		const eventName = data.event;
 		/**
 		 * @type {string[]} eventArgs
-		 */
+		 */s
 		const eventArgs = data.args;
 		switch (eventName) {
 			case "auth-unique-id": {
