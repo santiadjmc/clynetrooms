@@ -171,31 +171,5 @@ client.on("interactionCreate", async interaction => {
 		}
 	}
 });
-// WebSockets server
-wss.on("connection", wssHandler);
-/**
- * @param {WebSocket} ws
- */
-async function wssHandler(ws) {
-	ws.onmessage = async function (event) {
-		const data = JSON.parse(event.data);
-		/**
-		 * @type {string} eventName
-		 */
-		const eventName = data.event;
-		/**
-		 * @type {string[]} eventArgs
-		 */s
-		const eventArgs = data.args;
-		switch (eventName) {
-			case "auth-unique-id": {
-				ws.uniqueId = eventArgs[0];
-			}
-			case "path-set": {
-				ws.currentPath = eventArgs[0];
-			}
-		}
-	}
-}
 client.login(process.env.TOKEN);
 module.exports = client;

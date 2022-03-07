@@ -4,7 +4,6 @@ const app = express();
 const hbs = require("express-handlebars");
 const session = require("express-session");
 const flash = require("connect-flash");
-const { WebSocketServer } = require("ws");
 const path = require("path");
 const logs = require("./logs");
 const db = require("./db");
@@ -106,7 +105,32 @@ app.listen(app.get("port"), async () => {
 	await db.query(`CREATE TABLE IF NOT EXISTS pending_users (discordId TEXT NOT NULL)`);
 	logs.info("web", "Web Server at port " + app.get("port"));
 });
-
+// WebSockets server
+wss.on("connection", wssHandler);
+/**
+ * @param {WebSocket} ws
+ */
+async function wssHandler(ws) {
+	ws.onmessage = async function (event) {
+		const data = JSON.parse(event.data);
+		/**
+		 * @type {string} eventName
+		 */
+		const eventName = data.event;
+		/**
+		 * @type {string[]} eventArgs
+		 */s
+		const eventArgs = data.args;
+		switch (eventName) {
+			case "auth-unique-id": {
+				ws.uniqueId = eventArgs[0];
+			}
+			case "path-set": {
+				ws.currentPath = eventArgs[0];
+			}
+		}
+	}
+}
 setInterval(() => {
 	for (const key of rateLimits.keys()) {
 		rateLimits.delete(key);
