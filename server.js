@@ -11,6 +11,7 @@ const passport = require("passport");
 const MySqlStore = require("express-mysql-session");
 const { Collection } = require("discord.js");
 const morgan = require("morgan");
+const wss = require("./WebSocketServer");
 require("./auth/passport");
 require("./index");
 const rateLimits = new Collection();
