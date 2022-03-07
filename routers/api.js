@@ -14,7 +14,7 @@ async function checkHeaderAuth(req, res, next) {
         return res.status(401).json({ status: 401, message: "Not authorized" });
     }
     else {
-        const authArgs = req.headers.authorization.trim().split("-");
+        const authArgs = req.headers.authorization.trim().replaceAll(/ /g, "").split("-");
         const authType = authArgs[0];
         const authId = authArgs[1];
         const allowedTypes = ["user", "system"];
