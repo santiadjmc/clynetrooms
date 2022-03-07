@@ -1,10 +1,8 @@
 async function getUserByTag(tag) {
-    const request = await fetch("/api/discord/users");
+    const request = await fetch("/api/discord/users", { headers: { 'authorization': 'system' } });
     const req = await request.json();
-    if (req.error) {
-        logs.error("api", `Couldn't retrieve discord users, reason: ${req.message}`);
-        alert(`[API]: ${req.message}`);
-        return window.location.reload();
+    if (request.status > 399) {
+        alert(`[API]: ${req.message ? req.message : "Unknown error"}`);
     }
     if (req.warning) {
         logs.warn("api", req.warning);
@@ -33,7 +31,7 @@ async function sendForm(tagId, messageId, buttonId, ip) {
         alert("Invalid Tag");
         return;
     }
-    const request = await fetch("/api/users/pending", { method: "post", headers: { 'Content-type': 'application/json' }, body: JSON.stringify({ data: { discordId: foundU.userId, message: message.value, ip } }) });
+    const request = await fetch("/api/users/pending", { method: "post", headers: { 'Content-type': 'application/json', 'authorization': 'system' }, body: JSON.stringify({ data: { discordId: foundU.userId, message: message.value, ip } }) });
     const req = await request.json();
     if (req.alreadyConfirmating) {
         tag.disabled = false;

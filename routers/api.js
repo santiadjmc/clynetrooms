@@ -4,12 +4,34 @@ const logs = require("../logs");
 const router = Router();
 const BotClient = require("../index");
 const { MessageActionRow, MessageButton, MessageEmbed, TextChannel, Collection } = require("discord.js");
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
+function checkHeaderAuth(req, res, next) {
+    if (!req.headers.authorization) {
+        return res.status(401).json({ status: 401, message: "Not authorized" });
+    }
+    else {
+        const authArgs = req.headers.authorization.trim().split("-");
+        const authType = authArgs[0];
+        const authId = authArgs[1];
+        const allowedTypes = ["user", "system"];
+        if (!allowedTypes.some(type => type === authType)) return res.status(401).json({ status: 400, message: "Invalid auth type" });
+        if (authType === "system") return;
+        if (isNaN(authId)) return res.status(400).json({ status: 400, message: "ID is not a number" });
+        const foundId = await db.query("SELECT * FROM users WHERE users.id = ?", [Number(authId)]);
+        if (!foundId[0]) return res.status(401).json({ status: 400, message: "Not authorized" });
+        return next();
+    }
+}
 
 router.get("/", (req, res) => {
     res.status(403).json({ status: 403, message: "Forbbiden" });
 });
 const activeConfirmations = new Collection();
-router.get("/discord/users", async (req, res) => {
+router.get("/discord/users", checkHeaderAuth, async (req, res) => {
     const guild = BotClient.guilds.cache.first();
     try {
         await guild.members.fetch();
@@ -25,7 +47,7 @@ router.get("/discord/users", async (req, res) => {
         })
     });
 });
-router.post("/users/pending", async (req, res) => {
+router.post("/users/pending", checkHeaderAuth, async (req, res) => {
     const guild = BotClient.guilds.cache.first();
     /**
      * @type {TextChannel}
@@ -98,7 +120,7 @@ router.post("/users/pending", async (req, res) => {
     channel.send({ embeds: [embed], components: [row] });
     user.send("Tu solicitud ha sido enviada");
 });
-router.get("/users/pending", async (req, res) => {
+router.get("/users/pending", checkHeaderAuth, async (req, res) => {
     const pendingUsers = await db.query("SELECT * FROM pending_users");
     if (pendingUsers.length < 1) return res.json({ users: [] });
     else res.json({ users: pendingUsers.map(u => u.discordId) });
