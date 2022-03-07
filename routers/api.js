@@ -9,7 +9,7 @@ const { MessageActionRow, MessageButton, MessageEmbed, TextChannel, Collection }
  * @param {import("express").Response} res
  * @param {import("express").NextFunction} next
  */
-function checkHeaderAuth(req, res, next) {
+async function checkHeaderAuth(req, res, next) {
     if (!req.headers.authorization) {
         return res.status(401).json({ status: 401, message: "Not authorized" });
     }
