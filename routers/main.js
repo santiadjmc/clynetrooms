@@ -52,7 +52,7 @@ router.get("/home", (req, res) => res.redirect("/index"));
 router.get("/index", async (req, res) => {
 	const users = await db.query("SELECT * FROM users");
 	res.render("index", {
-		title: "Loading...",
+		title: "Clynet Academy",
 		total_users: users.length,
 		total_graduated: users.filter(u => u.graduated).length
 	});

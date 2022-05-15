@@ -1,260 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="ClynetRoom, ven a aprender desarrollo web!">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="../vendor/select2/select2.min.css">
-  <link rel="stylesheet" href="../vendor/owlcarousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="../vendor/lightcase/lightcase.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400|Work+Sans:300,400,700" rel="stylesheet">
-
-  <link rel="stylesheet" href="../css/style.min.css">
-  <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/bcbd698376.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Clynet Academy</title>
 </head>
-
-<body data-spy="scroll" data-target="#navbar" class="static-layout" style="overflow: hidden;">
-  <nav class="header-navbar navbar navbar-expand-lg py-4">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center text-white" href="/">
-        <img src="../img/icon.png" alt="">
-        <h4 style="padding:10px;font-weight: bold;padding-top:20px;">Clynet ROOM</h4>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header"
-        aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="lnr lnr-menu"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar-nav-header">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#reseñas">Reseñas</a>
-          </li>
-          <li class="nav-item">
-            <a style="background:#08004e;padding:20px;border-radius:5px;" class="nav-link"
-              href="contact.html">Inscribirme</a>
-          </li>
+<body>
+    <div class="loading">
+        <div class="content">
+            <img src="./img/logo.png" alt="Clynet ROOM">
+            <h1>Formando Desarrolladores!</h1>
+        </div>
+    </div>
+    <nav class="movil-nav">
+        <div class="brand">
+            <a href="#">
+                <img src="./img/logo.png" alt="Clynet ROOM">
+            </a>
+        </div>
+        <div class="open-menu">
+            <a class="open">
+                <img src="./img/menu.svg" alt="Menu">
+            </a>
+        </div>
+        <div class="menu-open">
+            <ul class="movil-nav-list">
+                <li><a href="#">Costos</a></li>
+                <li><a href="#">Inscribirme</a></li>
+                <li><a href="#">Certificados</a></li>
+                <li><a href="#">Apoyar</a></li>
+                <li><a href="#">¿Quienes somos?</a></li>
+                <li><a href="#">Portal de Estudiantes</a></li>
+            </ul>
+        </div>
+    </nav>
+    <nav class="desktop-nav">
+        <div class="brand">
+            <a href="#">
+                <img src="./img/logo.png" alt="Clynet ROOM">
+            </a>
+        </div>
+        <ul class="nav-list">
+            <li><a href="#">Costos</a></li>|
+            <li><a href="#">Inscribirme</a></li>|
+            <li><a href="#">Certificados</a></li>|
+            <li><a href="#">Apoyar</a></li>|
+            <li><a href="#">¿Quienes somos?</a></li>|
+            <li><a href="#">Portal de Estudiantes</a></li>
         </ul>
-      </div>
-    </div>
-  </nav>
-
-
-
-  </div>
-  <div class="parallax" data-aos="fade-left">
-    <div class="more">
-      <h2>
-        Adentrate en el nuevo mundo.
-      </h2>
-      <br>
-      <h3 style="color:gray;">
-        ¿Estás interesado en estudiar desarrollo web?, estás en el mejor lugar!, que esperas, inscribete ahora!
-      </h3>
-      <br>
-      <button class="discover">Inscribirme</button>
-    </div>
-    <div class="demo-post">
-      <div class="new-post">
-        <img src="../img/icon.png" alt="">
-      </div>
-    </div>
-    <div class="stats">
-      <div class="accounts shadow">
-        <h3><b>{{ total_users }}</b></h3>
-        <h4>
-          <p>Inscritos</p>
-        </h4>
-      </div>
-      <div class="posts shadow">
-        <h3><b>{{ total_graduated }}</b></h3>
-        <h4>
-          <p>Graduados</p>
-        </h4>
-      </div>
-    </div>
-
-  </div>
-  <section id="reseñas" id="who-we-are">
-    <div class="container">
-      <div class="section-content">
-        <div class="title-wrap" data-aos="fade-right">
-          <h2 class="section-title">Reseñas</h2>
-          <div class="posts-short">
-            <div class="reseñas">
-              <div class="info">
-                <center>
-                  <img src="./img/warnguy.jpg" alt="">
-                  <br>
-                  <br>
-                  <h4 style="color:white;">{{ Title_post }}</h4>
-                  <p style="color:gray;">{{ Decription }}</p>
-                  <br>
-                  <b style="color:white;">{{ Username }}</b>
-                </center>
-              </div>
+    </nav>
+    <div class="head-banner">
+        <div class="overlay">
+            <div class="data">
+                <h1>APRENDE SISTEMAS CON NOSOTROS</h1>
+                <hr>
+                <br>
+                <a class="btn_ins" href="#">¡INSCRIBIRME AHORA!</a>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </section>
-  <hr>
-  <section id="offer" id="">
-    <div class="container">
-      <div class="section-content">
-        <div class="title-wrap" data-aos="fade-left">
-          <h2 class="section-title" style="text-align:left;">¿Por qué Clynet Room?</h2>
-          <div class="row">
-            <div class="col-md-10 offset-md-1 features-holder">
-              <div class="row why-articles">
-                <div class="why">
-                  <div class="image">
-                    <img style="height:40px;"
-                      src="https://media.discordapp.net/attachments/889873922781225011/941893917652160522/unknown.png?width=473&height=473"
-                      alt="">
-                  </div>
-                  <br>
-                  <div class="title">
-                    <p><b>Excelente servicio de enseñanza.</b></p>
-                  </div>
-                  <br>
-                  <div class="info">
-                    <p>Contamos con unos profesores experimentados en el area de enseñanza</p>
-                  </div>
-                </div>
-                <div class="why">
-                  <div class="image">
-                    <img style="height:40px;"
-                      src="https://media.discordapp.net/attachments/889873922781225011/941893521336569937/candado.png?width=473&height=473"
-                      alt="">
-                  </div>
-                  <br>
-                  <div class="title">
-                    <p><b>Totalmente seguro.</b></p>
-                  </div>
-                  <br>
-                  <div class="info">
-                    <p>Los cursos no terminan hasta que hayas aprendido del todo!.</p>
-                  </div>
-                </div>
-              </div>
+    <section id="info">
+        <div class="content">
+            <div class="section-title">
+                 <h1>¿Por qué Elegirnos?</h1>
             </div>
-          </div>
+            <div class="articles">
+                <div class="article">
+                    <img src="./img/soporte.svg" alt="Soporte">
+                    <br>
+                    <br>
+                    <span>Soporte las 24/7 para atender tus dudas</span>
+                </div>
+                <div class="article">
+                    <img src="./img/seguridad.svg" alt="Seguridad">
+                    <br>
+                    <br>
+                    <span>Tú información estara totalmente segura</span>
+                </div>
+                <div class="article">
+                    <img src="./img/gratis.svg" alt="Gratis">
+                    <br>
+                    <br>
+                    <span>Totalmente gratis el primer modulo!</span>
+                </div>
+            </div>
         </div>
-      </div>
-  </section>
-  <hr>
-  </div>
-  <footer class="footer">
-    <hr>
-    <br>
-    <div class="footer__addr">
-      <h1 class="footer__logo">Clynet ROOM</h1>
-      <div class="social">
-        <div class="icons">
-          <a href="#" class="icon">
-            <img src="./img/discord.svg" alt="discord">
-          </a>
-          <a href="#" class="icon">
-            <img src="./img/twitter.svg" alt="twitter">
-          </a>
-          <a href="#" class="icon">
-            <img src="./img/instagram.svg" alt="instagram">
-          </a>
+    </section>
+    <section id="modulos">
+        <div class="content">
+            <div class="section-title">
+                <h1>Modulos</h1>
+            </div>
+            <div class="container">
+                <div class="buttons">
+                    <div class="button">
+                        <img src="./img/windows.svg" alt="Windows">
+                        <br>
+                        <span>Dominio de Windows</span>
+                        <br>
+                        <b>100% Virtual</b>
+                    </div>
+                    <div class="button">
+                        <img src="./img/code.svg" alt="Windows">
+                        <br>
+                        <span>Desarrollo de Aplicaciones</span>
+                        <br>
+                        <b>100% Virtual</b>
+                    </div>
+                    <div class="button">
+                        <img src="./img/hardware.svg" alt="Windows">
+                        <br>
+                        <span>Soporte para Hardware</span>
+                        <br>
+                        <b>100% Virtual</b>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <br>
-      <p>&copy; 2022 <a href="http://clynet.cf/">Clynet Projects</a> All rights reserved</p>
-    </div>
-
-    <ul class="footer__nav">
-      <li class="nav__item">
-        <h2 class="nav__title">Information</h2>
-
-        <ul class="nav__ul">
-          <li>
-            <a href="#">Work with us</a>
-          </li>
-
-          <li>
-            <a href="#">Privacity</a>
-          </li>
-
-          <li>
-            <a href="#">Legality</a>
-          </li>
-        </ul>
-      </li>
-      <ul class="footer__nav">
-        <li class="nav__item">
-          <h2 class="nav__title">Documentation</h2>
-
-          <ul class="nav__ul">
-            <li>
-              <a href="#">Portfolios</a>
-            </li>
-
-            <li>
-              <a href="#">Samples</a>
-            </li>
-
-            <li>
-              <a href="#">Offices</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav__item">
-          <h2 class="nav__title">Legal</h2>
-
-          <ul class="nav__ul">
-            <li>
-              <a href="#">Privacy Policy</a>
-            </li>
-
-            <li>
-              <a href="#">Terms of Use</a>
-            </li>
-
-            <li>
-              <a href="#">Contact</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-
-      <div class="legal">
-
-        <div class="legal__links">
-          <span>This site was made by the corp <a href="http://clynet.cf/"> Clynet Projects</a> ~ SantiagoR ~
-            SantiagoM</span>
+    </section>
+    <section id="stats">
+        <div class="content">
+            <div class="section-title">
+                <h1>Nuestras estadisticas</h1>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <img src="./img/estudiantes.svg" alt="Estudiantes">
+                    <br>
+                    <b>33 Estudiantes</b>
+                </div>
+                <div class="stat">
+                    <img src="./img/certificados.svg" alt="Certificados">
+                    <br>
+                    <b>0 Estudiantes Certificados</b>
+                </div>
+                <div class="stat">
+                    <img src="./img/modulos.svg" alt="Modulos">
+                    <br>
+                    <b>3 Modulos de clases</b>
+                </div>
+            </div>
         </div>
-      </div>
-  </footer>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-  <script src="vendor/bootstrap/popper.min.js"></script>
-  <script src="vendor/bootstrap/bootstrap.min.js"></script>
-  <script src="vendor/select2/select2.min.js "></script>
-  <script src="vendor/owlcarousel/owl.carousel.min.js"></script>
-  <script src="vendor/stellar/jquery.stellar.js" type="text/javascript" charset="utf-8"></script>
-  <script src="vendor/isotope/isotope.min.js"></script>
-  <script src="vendor/lightcase/lightcase.js"></script>
-  <script src="vendor/waypoints/waypoint.min.js"></script>
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script src="js/app.min.js "></script>
-  <script>document.title="Home"</script>
+    </section>
+    <section id="contacto">
+        <div class="content">
+            <div class="section-title">
+                <h1>Contactanos</h1>
+            </div>
+            <a target="_BLANK" href="https://wa.me/3023714981?text=Estoy%20interesado%20en%20Clynet%20Academy!">
+               <img src="./img/whatsapp.svg" alt="Whatsapp">
+               <br>
+               Click al icono para contactarnos por Whatsapp!
+               <br>
+               <br>
+            </a>
+        </div>
+    </section>
+    <footer>
+        <div class="rights">
+            <img src="./img/footer.png" alt="Footer"><br>
+            <p>Copyright © 2022 - ALL RIGHTS RESERVED.</p>
+            <div class="aliados">
+                <img src="./img/google.png" alt="">
+                <img src="./img/facebook.png" alt="">
+                <img src="./img/mdn.png" alt="">
+            </div>
+            <hr>
+            <p>Aliados para ofrecerte gran contenido detallado</p>
+            <ul class="legal">
+                <li><a href="#">Terminos & Condiciones</a></li>
+                <li><a href="#">Politica de Privacidad</a></li>
+                <li><a href="#">Politica de Cookies</a></li>
+                <li><a href="#">Contenido Legal</a></li>
+            </ul>
+        </div>
+    </footer>
+    <script src="./js/query.js"></script>
 </body>
-
 </html>

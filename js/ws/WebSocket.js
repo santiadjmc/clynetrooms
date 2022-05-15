@@ -10,7 +10,7 @@ function genSocketId(length) {
 	}
 	return char;
 }
-let ws = new WebSocket("ws://161.97.104.158:8889");
+let ws = new WebSocket("ws://207.244.228.194:8889");
 let wsConnected = false;
 let imt = null;
 ws.onopen = () => {
