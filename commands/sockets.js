@@ -1,8 +1,17 @@
+const { Message } = require("discord.js");
 const wss = require("../WebSocketServer");
 module.exports = {
 	name: "sockets",
 	description: "Shows connected sockets",
 	aliases: [],
+	category: "admin",
+	/**
+	 * @param {Message} message
+	 * @param {string[]} args
+	 * @param {function} reply
+	 * @param {function} getInput
+	 * @param {function} wait
+	 */
 	execute: async function (message, args, reply, getInput, wait) {
 		const { member, author, channel, guild, content, client } = message;
 		if (!member.permissions.has("ADMINISTRATOR")) return reply("No tienes autorización para usar este comando");
