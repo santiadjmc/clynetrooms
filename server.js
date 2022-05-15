@@ -124,9 +124,17 @@ async function wssHandler(ws) {
 		const eventArgs = data.args;
 		switch (eventName) {
 			case "auth-unique-id": {
+				if (ws.uniqueId) {
+					ws.send(JSON.stringify({ event: "error", args: ["UniqueID already set"] }));
+					break;
+				}
 				ws.uniqueId = eventArgs[0];
 			}
 			case "path-set": {
+				if (ws.path) {
+					ws.send(JSON.stringify({ event: "error", args: ["Path already set"] }));
+					break;
+				}
 				ws.currentPath = eventArgs[0];
 			}
 		}
