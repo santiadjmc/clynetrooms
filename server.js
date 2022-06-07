@@ -1,6 +1,7 @@
-require("dotenv").config();
 const express = require("express");
 const app = express();
+const { v4: uuidv4 } = require('uuid')
+const fs = require('fs')
 const hbs = require("express-handlebars");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -11,9 +12,7 @@ const passport = require("passport");
 const MySqlStore = require("express-mysql-session");
 const { Collection } = require("discord.js");
 const morgan = require("morgan");
-const wss = require("./WebSocketServer");
-require("./auth/passport");
-require("./index");
+const { WebSocketServer } = require("ws");
 const rateLimits = new Collection();
 
 // Middlewares
@@ -43,12 +42,7 @@ function rateLimit(req, res, next) {
 	if (rateLimits.has(ip)) {
 		const rObject = rateLimits.get(ip);
 		if (rObject.current === rObject.max) {
-			return res.status(429).send(`
-			<title>429 - Too many requests</title>
-			<center>
-			<h1>Too many requests</h1>
-			</center>
-			`);
+			return res.destroy();
 		}
 		else {
 			rateLimits.get(ip).current = rObject.current + 1;
@@ -97,16 +91,26 @@ app.use("/js", express.static(path.join(__dirname, "js")));
 app.use("/css", express.static(path.join(__dirname, "css")));
 app.use("/img", express.static(path.join(__dirname, "img")));
 app.use("/vendor", express.static(path.join(__dirname, "vendor")));
-app.use("/", rateLimit, require("./routers/main"));
+app.use("/", require("./routers/main"));
 app.use("/api", rateLimit, require("./routers/api"));
 
+//Cert
+// const ssl = https.createServer(
+// 	{
+// 		key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+// 		cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+// 	},
+// 	app
+// )
+
 // Web start
-app.listen(app.get("port"), async () => {
+const server = app.listen(app.get("port"), async () => {
 	await db.query(`CREATE TABLE IF NOT EXISTS users (id INT(200) NOT NULL AUTO_INCREMENT, username VARCHAR(30) NOT NULL, password VARCHAR(65) NOT NULL, email TEXT NOT NULL, deleted BOOLEAN NOT NULL, graduated BOOLEAN NOT NULL, admin BOOLEAN NOT NULL, discordId TEXT NOT NULL, last_ip TEXT NOT NULL, PRIMARY KEY (id))`);
 	await db.query(`CREATE TABLE IF NOT EXISTS pending_users (discordId TEXT NOT NULL)`);
 	logs.info("web", "Web Server at port " + app.get("port"));
 });
 // WebSockets server
+const wss = new WebSocketServer({ server })
 wss.on("connection", wssHandler);
 /**
  * @param {WebSocket} ws

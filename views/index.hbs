@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/favicon.ico" type="image/png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/bcbd698376.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/main.css">
@@ -13,12 +14,12 @@
     <div class="loading">
         <div class="content">
             <img src="./img/logo.png" alt="Clynet ROOM">
-            <h1>Formando Desarrolladores!</h1>
+            <h1>¡Formando Desarrolladores!</h1>
         </div>
     </div>
     <nav class="movil-nav">
         <div class="brand">
-            <a href="#">
+            <a href="/index">
                 <img src="./img/logo.png" alt="Clynet ROOM">
             </a>
         </div>
@@ -29,27 +30,25 @@
         </div>
         <div class="menu-open">
             <ul class="movil-nav-list">
-                <li><a href="#">Costos</a></li>
-                <li><a href="#">Inscribirme</a></li>
-                <li><a href="#">Certificados</a></li>
-                <li><a href="#">Apoyar</a></li>
-                <li><a href="#">¿Quienes somos?</a></li>
+                <li><a href="/costos">Costos</a></li>
+                <li><a target="_blank" href="https://wa.me/3023714981?text=Estoy%20interesado%20en%20Clynet%20Academy!">Inscribirme</a></li>
+                <li><a href="/certificados">Certificados</a></li>
+                <li><a href="/donate">Apoyar</a></li>
                 <li><a href="#">Portal de Estudiantes</a></li>
             </ul>
         </div>
     </nav>
     <nav class="desktop-nav">
         <div class="brand">
-            <a href="#">
+            <a href="/index">
                 <img src="./img/logo.png" alt="Clynet ROOM">
             </a>
         </div>
         <ul class="nav-list">
-            <li><a href="#">Costos</a></li>|
-            <li><a href="#">Inscribirme</a></li>|
-            <li><a href="#">Certificados</a></li>|
-            <li><a href="#">Apoyar</a></li>|
-            <li><a href="#">¿Quienes somos?</a></li>|
+            <li><a href="/costos">Costos</a></li>|
+            <li><a target="_blank" href="https://wa.me/3023714981?text=Estoy%20interesado%20en%20Clynet%20Academy!">Inscribirme</a></li>|
+            <li><a href="/certificados">Certificados</a></li>|
+            <li><a href="/donate">Apoyar</a></li>|
             <li><a href="#">Portal de Estudiantes</a></li>
         </ul>
     </nav>
@@ -100,7 +99,7 @@
                     <div class="button">
                         <img src="./img/windows.svg" alt="Windows">
                         <br>
-                        <span>Dominio de Windows</span>
+                        <span>Dominio de Windows & Dominio de Linux</span>
                         <br>
                         <b>100% Virtual</b>
                     </div>
@@ -131,12 +130,12 @@
                 <div class="stat">
                     <img src="./img/estudiantes.svg" alt="Estudiantes">
                     <br>
-                    <b>33 Estudiantes</b>
+                    <b>{{ total_users }} Estudiantes</b>
                 </div>
                 <div class="stat">
                     <img src="./img/certificados.svg" alt="Certificados">
                     <br>
-                    <b>0 Estudiantes Certificados</b>
+                    <b>{{ total_graduated }} Estudiantes Certificados</b>
                 </div>
                 <div class="stat">
                     <img src="./img/modulos.svg" alt="Modulos">
@@ -179,6 +178,6 @@
             </ul>
         </div>
     </footer>
-    <script src="./js/query.js"></script>
+    <script src="../js/query.js"></script>
 </body>
 </html>

@@ -11,13 +11,18 @@ $('.open').on('click', async () => {
         open_menu = true
     } else {
         $('.menu-open').hide("slide")
-        console.log('asda')
         open_menu = false
     }
 })
 
+let lastScrollTop = 0
 
-
-
-
-
+window.onscroll = function(e) {
+    var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+   if (st > lastScrollTop){
+       $('.movil-nav').css('position', 'fixed')
+   } else {
+    $('.movil-nav').css('position', 'sticky')
+   }
+   lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+}

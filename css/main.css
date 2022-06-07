@@ -8,6 +8,8 @@
 html, body {
     margin:0;
     padding:0;
+    background:#101010;
+    color:white;
     scroll-behavior: smooth;
     font-family: 'Rubik', sans-serif;
     overflow-x:hidden;
@@ -56,7 +58,6 @@ html, body {
     padding:10px;
     width:100%;
     z-index:99999;
-    position:fixed;
     background:rgb(73, 151, 53);
 }
 
@@ -161,8 +162,8 @@ section .content .section-title {
     margin:10px 30px;
     width:500px;
     padding:20px;
-    background:rgb(233, 233, 233);
-    border-bottom:5px solid rgb(163, 163, 163);
+    background:rgb(51, 51, 51);
+    border-bottom:5px solid rgb(26, 26, 26);
     text-align:center;
 }
 
@@ -190,9 +191,10 @@ section .content .section-title {
 }
 
 .buttons {
-    margin:0 30px;
+    width:100%;
     padding:10px;
     display:flex;
+    justify-content: center;
     flex-wrap:wrap;
 }
 
@@ -215,16 +217,6 @@ section .content .section-title {
     display:flex;
     align-items:center;
     justify-content:center;
-}
-
-.preview {
-    color:black;
-    background:white;
-    border-bottom:5px solid rgb(141, 141, 141);
-    padding:10px;
-    height:100%;
-    width:70%;
-    display:none;
 }
 
 .loading {
@@ -258,8 +250,8 @@ section .content .section-title {
 .stat {
     margin: 10px 10px;
     width:400px;
-    background:rgb(233, 233, 233);
-    border-bottom:5px solid rgb(163, 163, 163);
+    background:rgb(51, 51, 51);
+    border-bottom:5px solid rgb(26, 26, 26);
     padding:20px;
     text-align:center;
 }
@@ -270,7 +262,7 @@ section .content .section-title {
 
 footer {
     padding:40px;
-    background:#1b1b1b;
+    background:#202020;
     display:flex;
     flex-wrap: wrap;
     justify-content: center;

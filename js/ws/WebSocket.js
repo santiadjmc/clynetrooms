@@ -10,7 +10,8 @@ function genSocketId(length) {
 	}
 	return char;
 }
-let ws = new WebSocket("ws://207.244.228.194:8889");
+const wsURI = `${window.location.href.startsWith("https://") ? 'wss' : 'ws'}://${location.hostname}`;
+let ws = new WebSocket(wsURI);
 let wsConnected = false;
 let imt = null;
 ws.onopen = () => {
@@ -33,7 +34,7 @@ function notConnectedHandler() {
 			clearInterval(imt);
 			return imt = null;
 		}
-		ws = new WebSocket("ws://161.97.104.158:8889");
+		ws = new WebSocket(wsURI);
 		ws.onopen = () => {
 			wsConnected = true;
 			ws.onmessage = wsMessageHandler;

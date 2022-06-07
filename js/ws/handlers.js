@@ -27,7 +27,7 @@ function wsCloseHandler(event) {
 			clearInterval(imt);
 			return imt = null;
 		}
-		ws = new WebSocket("ws://161.97.104.158:8889");
+		ws = new WebSocket(wsURI);
 		ws.onopen = () => {
 			wsConnected = true;
 			ws.onmessage = wsMessageHandler;

@@ -1,11 +1,9 @@
 const { Client, MessageEmbed, MessageButton, MessageActionRow, Collection } = require("discord.js");
 const logs = require("./logs");
 const fs = require("fs");
-const { WebSocketServer } = require("ws");
 const wait = require("util").promisify(setTimeout);
 const bcrypt = require("bcryptjs");
 const db = require("./db");
-const wss = require("./WebSocketServer");
 const client = new Client({
 	intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS", "DIRECT_MESSAGES"]
 });

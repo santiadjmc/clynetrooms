@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>{{title}}</title>
-	</head>
-	<body>
-		<script>
-			const params = new Map();
-			const searchParams = location.search.replace("?", "").trim().split("&");
-			if (searchParams.length > 0) {
-				for (const p of searchParams) {
-					params.set(p.split("=")[0], p.split("=")[1]);
-				}
+
+<head>
+	<link rel="icon" href="../../img/favicon.ico" type="image/x-icon">
+	<meta name="author" content="Clynet Projects">
+	<meta name="copyright" content="Clynet Projects">
+	<meta name="robots" content="index">
+	<meta name="description" content="{{ description }}">
+	<meta name="keywords"
+		content="Clynet, Projects, Clynet Projects, instituto, Universidad, UNIVERSIDAD, INSTITUTO, cursos, aprender, html, css, programación, programacion, certificados, certificado, google aprende, aprender, como hacer, como">
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7720324385586426"
+		crossorigin="anonymous"></script>
+	<title>{{title}}</title>
+</head>
+
+<body>
+	<script>
+		const params = new Map();
+		const searchParams = location.search.replace("?", "").trim().split("&");
+		if (searchParams.length > 0) {
+			for (const p of searchParams) {
+				params.set(p.split("=")[0], p.split("=")[1]);
 			}
-		</script>
-		<script src="/js/ws/WebSocket.js"></script>
-		{{{body}}}
-		<script src="/js/ws/handlers.js"></script>
-		{{#if success}}
-		<script>alert("{{success}}")</script>
-		{{/if}}
-		{{#if error}}
-		<script>alert("{{error}}")</script>
-		{{/if}}
-	</body>
+		}
+		if (!window.location.href.startsWith("https://")) window.location.href = window.location.href.replace("http://", "https://");
+	</script>
+	<script src="/js/ws/WebSocket.js"></script>
+	{{{body}}}
+	<script src="/js/ws/handlers.js"></script>
+	{{#if success}}
+	<script>alert("{{success}}")</script>
+	{{/if}}
+	{{#if error}}
+	<script>alert("{{error}}")</script>
+	{{/if}}
+</body>
+
 </html>

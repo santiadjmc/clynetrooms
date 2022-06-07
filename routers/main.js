@@ -60,13 +60,44 @@ router.get("/index", async (req, res) => {
 
 router.get("/signup", onlyNoAuth, async (req, res) => {
 	res.render("register", {
-		title: "Registro"
+		title: "Registro",
+		description: ''
 	});
 });
 
+router.get('/costos', async(req, res) => {
+	res.render('costos', {
+		title: "Costos - Clynet Academy",
+		description: 'Clynet Academy Instituto digital - Cursos de todo lo que abarca la tecnologia, para hacerte todo un profesional.'
+	});
+});
+
+router.get('/certificados', async(req, res) => {
+	res.render('certificados', {
+		title: "Personas Certificadas - Clynet Academy",
+		description: 'Clynet Academy Instituto digital - Listados de personas que se han certificado con nosotros.'
+	});
+});
+
+router.get('/donate', async(req, res) => {
+	res.render('apoyar', {
+		title: 'Ayudanos a Crecer! - Clynet Academy',
+		description: 'Clynet Academy Instituto digital - Apoyo economico para aquellas personas que no tienen dinero para poder costearse un curso, ¡Ayudalas!'
+	})
+})
+
+router.get('/portal', async(req, res) => {
+	res.render('panel', {
+		title: 'Portal Estudiantes - Clynet Academy',
+		description: 'Clynet Academy Instituto digital - Apoyo economico para aquellas personas que no tienen dinero para poder costearse un curso, ¡Ayudalas!'
+	})
+})
+
+
 router.get("/signin", onlyNoAuth, async (req, res) => {
 	res.render("login", {
-		title: "Singin"
+		title: "Singin",
+		description: 'Clynet Academy Instituto digital - Area de estudiantes..'
 	});
 });
 
