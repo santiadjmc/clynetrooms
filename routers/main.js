@@ -40,7 +40,7 @@ function onlyNoAuth(req, res, next) {
 
 router.get("/", (req, res) => res.redirect("/index"));
 
-router.get("/redirect", async (req, res) =>{
+router.get("/redirect", async (req, res) => {
 	const uri = req.query.uri;
 	if (!uri) return res.redirect("/index");
 	res.redirect(uri);
@@ -65,28 +65,28 @@ router.get("/signup", onlyNoAuth, async (req, res) => {
 	});
 });
 
-router.get('/costos', async(req, res) => {
+router.get('/costos', async (req, res) => {
 	res.render('costos', {
 		title: "Costos - Clynet Academy",
 		description: 'Clynet Academy Instituto digital - Cursos de todo lo que abarca la tecnologia, para hacerte todo un profesional.'
 	});
 });
 
-router.get('/certificados', async(req, res) => {
+router.get('/certificados', async (req, res) => {
 	res.render('certificados', {
 		title: "Personas Certificadas - Clynet Academy",
 		description: 'Clynet Academy Instituto digital - Listados de personas que se han certificado con nosotros.'
 	});
 });
 
-router.get('/donate', async(req, res) => {
+router.get('/donate', async (req, res) => {
 	res.render('apoyar', {
 		title: 'Ayudanos a Crecer! - Clynet Academy',
 		description: 'Clynet Academy Instituto digital - Apoyo economico para aquellas personas que no tienen dinero para poder costearse un curso, ¡Ayudalas!'
 	})
 })
 
-router.get('/portal', async(req, res) => {
+router.get('/portal', async (req, res) => {
 	res.render('panel', {
 		title: 'Portal Estudiantes - Clynet Academy',
 		description: 'Clynet Academy Instituto digital - Apoyo economico para aquellas personas que no tienen dinero para poder costearse un curso, ¡Ayudalas!'
@@ -116,4 +116,14 @@ router.get("/logout", onlyAuth, async (req, res) => {
 	req.logout();
 	res.redirect("/signin");
 });
+
+router.get("/index/physic", async (req, res) => {
+	const users = await db.query("SELECT * FROM users");
+	res.render("index_tecno", {
+		title: "Clynet Academy",
+		total_users: users.length,
+		total_graduated: users.filter(u => u.graduated).length
+	});
+});
+
 module.exports = router;
